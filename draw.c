@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:28:43 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/02/13 20:57:55 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/02/14 22:55:47 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "fdf.h"
 
 static void iso(int *x, int *y, int z)
@@ -23,27 +24,14 @@ static void iso(int *x, int *y, int z)
     *y = -z + (previous_x + previous_y) * sin(0.523599);
 }
 
-void	prepare_draw(float x1, float y1, float x2, float y2, t_fdf *st)
+int		ftoi(float f)
 {
-	/* iso(&x1, &y1, z1);
-	iso(&x2, &y2, z2); */
-
-	draw_line(x1, y1, x2, y2, st);
+	if (f - (int)f >= 0.5)
+		return (f + 1);
+	return (f);
 }
 
-void ft_swap(int *q, int *w)
-{
-	int t;
-
-	if (*q < *w)
-	{
-		t = *q;
-		*q = *w;
-		*w = t;
-	}
-}
-
-void	draw_line(int x1, int y1, int x2, int y2, t_fdf *st)
+void	draw_line(t_point p1, t_point p2, t_fdf *st)
 {
 	float	shift;
 	float	shift_i;
@@ -53,20 +41,18 @@ void	draw_line(int x1, int y1, int x2, int y2, t_fdf *st)
 	int		y;
 	int		diry;
 
-	ft_swap(&(x1), &(x2));
-	ft_swap(&(y1), &(y2));
-	deltax = abs(x1 - x2);
-    deltay = abs(y1 - y2);
+	deltax = abs(p1.x - p2.x);
+    deltay = abs(p1.y - p2.y);
 	shift = 0;
 	shift_i = (float)deltay / deltax;
-	y = 0;
-	diry = y1 - y2;
+	y = p1.y;
+	diry = p1.y - p2.y;
 	if (diry > 0)
 		diry = 1;
 	if (diry < 0)
 		diry = -1;
-	x = x2;
-	while (x <= x1)
+	x = p1.x;
+	while (x <= p2.x)
 	{
 		if (x >= 0 && y >= 0)
 			mlx_pixel_put(st->mlx_ptr, st->win_ptr, x, y, COLOR);
@@ -80,25 +66,16 @@ void	draw_line(int x1, int y1, int x2, int y2, t_fdf *st)
 	}
 }
 
-void	draw_lines(t_fdf *st)
+void	draw(t_fdf *st)
 {
 	int	i;
-	int	j;
-	float q;
+	t_point *p;
 
-	i = 0;
-	q = st->scale;
-	while (i < st->y)
+	while (i < st->x * st->y)
 	{
-		j = 0;
-		while (j < st->x)
-		{
-			if (j != st->x - 1)
-				prepare_draw((j + 1) * q, i * q, j * q, i * q, st);
-			if (i != st->y - 1)
-				prepare_draw(j * q, (i + 1) * q, j * q, i * q, st);
-			j++;
-		}
-		i++;
+		if (st->p_arr[i].right)
+			draw_line(st->p_arr[i], *(st->p_arr[i].right), st);
+		if (st->p_arr[i].down)
+			draw_line(st->p_arr[i], *(st->p_arr[i].down), st);
 	}
 }

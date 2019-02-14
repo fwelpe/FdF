@@ -3,30 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 19:19:51 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/13 20:46:06 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/02/14 22:56:19 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fdf.h"
 
-int	deal_key(int key, void *param)
+int		deal_key(int key, void *param)
 {
 	write(1, "X", 1);
 	return (0);
 }
 
-void	calc_scale(t_fdf *st)
+void	calc_scale_n_shift(t_fdf *st)
 {
 	float	tmp;
 
-	tmp = (float)H / (st->y * 1.3);
-	st->scale = (float)W / (st->x * 1.3);
+	tmp = (float)H * (1 - INDENT_PCT) / st->y;
+	st->scale = (float)W * (1 - INDENT_PCT) / st->x;
 	st->scale = tmp < st->scale ? tmp : st->scale;
-	// st->scale = st->scale > 1 ? 1 : st->scale;
+	st->shx = (float)W * INDENT_PCT;
+	st->shy = (float)H * INDENT_PCT;
+}
+
+int		p_arr_init(t_fdf *st)
+{
+	int i;
+	int j;
+
+	MALLCHECK((st->p_arr = (t_point*)malloc(sizeof(t_point) * st->x * st->y)));
+	i = 0;
+	while (i < st->y)
+	{
+		j = 0;
+		while (j < st->x)
+		{
+			st->p_arr[st->x * i + j].x = j;
+			st->p_arr[st->x * i + j].y = i;
+			st->p_arr[st->x * i + j].z = st->map[i][j];
+			if (j != st->x - 1)
+				st->p_arr[st->x * i + j].right =
+			  &(st->p_arr[st->x * i + j + 1]);
+			else
+				st->p_arr[st->x * i + j].right = NULL;
+			if (i != st->y - 1)
+				st->p_arr[st->x * i + j].down =
+			  &(st->p_arr[st->x * (i + 1) + j + 1]);
+			else
+				st->p_arr[st->x * i + j].down = NULL;
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+void	p_arr_add_scale_n_shift(t_fdf *st)
+{
+	int		i;
+	t_point	*p;
+
+	i = 0;
+	p = st->p_arr;
+	while (i < st->x * st->y)
+	{
+		p->x = p->x * st->scale + st->shx;
+		p->y = p->y * st->scale + st->shy;
+		p->z = p->z * st->scale;
+		p++;
+		i++;
+	}
 }
 
 int		st_init(t_fdf *st, char *n)
@@ -34,14 +84,13 @@ int		st_init(t_fdf *st, char *n)
 	st->mlx_ptr = mlx_init();
 	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, "эмеликсь пиксель пют");
 	st->n = n;
-	if (!fillall_validate(st))
+	if (!fillall_validate(st) || !p_arr_init(st))
 		return (0);
-	calc_scale(st);
-	st->shx = W / 2 - ((float)st->x / 2 * st->scale);
-	st->shy = H / 2 - ((float)st->y / 2 * st->scale);
-	st->ax = 0.1667;
-	st->ay = 0;
-	st->az = 0.08333;
+	calc_scale_n_shift(st);
+	p_arr_add_scale_n_shift(st);
+	st->ax = PI / 6;
+	st->ay = PI / 6;
+	st->az = 0;
 	return (1);
 }
 
@@ -55,45 +104,10 @@ int 	main(int ac, char **av)
 		return (0);
 	}
 	printf("%f\n", st.scale);
-	draw_lines(&st);
+	draw(&st);
 	//mlx_pixel_put(st.mlx_ptr, st.win_ptr, 1, 1, COLOR);
     //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);
 	mlx_key_hook(st.win_ptr, deal_key, (void *)0);
 	mlx_loop(st.mlx_ptr);
 
 }
-
-/* int	main(int ac, char **av)
-{
-	int		i;
-	int		j;
-	t_fdf	st;
-
-	st.n = av[1];
-	if (!fillall_validate(&st))
-	{
-		printf("Oops!\n");
-		return (0);
-	}
-	i = 0;
-	j = 0;
-	while (i < st.y)
-	{
-		while (j < st.x)
-		{
-			printf("% 4i", st.map[i][j]);
-			j++;
-		}
-		printf("\n");
-		j = 0;
-		i++;
-	}
-} */
-
-/* int main()
-{
-	int q = 3;
-	int w = 8;	
-	float i = w / (float)q;
-	printf("%i\n", (int)i);
-} */
