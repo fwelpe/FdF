@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 19:19:51 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/14 22:56:19 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/02/15 20:22:41 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	calc_scale_n_shift(t_fdf *st)
 {
 	float	tmp;
 
-	tmp = (float)H * (1 - INDENT_PCT) / st->y;
-	st->scale = (float)W * (1 - INDENT_PCT) / st->x;
+	tmp = (float)H * (1 - INDENT_PCT * 2) / st->y;
+	st->scale = (float)W * (1 - INDENT_PCT * 2) / st->x;
 	st->scale = tmp < st->scale ? tmp : st->scale;
 	st->shx = (float)W * INDENT_PCT;
 	st->shy = (float)H * INDENT_PCT;
@@ -52,7 +52,7 @@ int		p_arr_init(t_fdf *st)
 				st->p_arr[st->x * i + j].right = NULL;
 			if (i != st->y - 1)
 				st->p_arr[st->x * i + j].down =
-			  &(st->p_arr[st->x * (i + 1) + j + 1]);
+			  &(st->p_arr[st->x * (i + 1) + j]);
 			else
 				st->p_arr[st->x * i + j].down = NULL;
 			j++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:48:54 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/14 22:56:09 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/02/15 20:12:23 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define COLOR 0xff0000
 # define PI 3.141592653589793238462643
 # define MALLCHECK(x) if (!x) return (0)
-# define INDENT_PCT 0.15
+# define INDENT_PCT 0.3
 
 typedef struct	s_point
 {
