@@ -15,7 +15,10 @@
 
 int		deal_key(int key, void *param)
 {
-	write(1, "X", 1);
+	if (!param)
+	;
+	if (key == 53)
+		exit (0);
 	return (0);
 }
 
