@@ -101,7 +101,7 @@ int 	main(int ac, char **av)
 {
 	t_fdf	st;
 
-	if (!st_init(&st, av[1]))
+	if (ac != 2 || !st_init(&st, av[1]))
 	{
 		printf("Error!\n");
 		return (0);

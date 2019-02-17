@@ -13,16 +13,16 @@
 #include <stdio.h>
 #include "fdf.h"
 
-static void iso(float *x, float *y, float z)
-{
-    int previous_x;
-    int previous_y;
+// static void iso(float *x, float *y, float z)
+// {
+//     int previous_x;
+//     int previous_y;
 
-    previous_x = *x;
-    previous_y = *y;
-    *x = (previous_x - previous_y) * cos(0.523599);
-    *y = -z + (previous_x + previous_y) * sin(0.523599);
-}
+//     previous_x = *x;
+//     previous_y = *y;
+//     *x = (previous_x - previous_y) * cos(0.523599);
+//     *y = -z + (previous_x + previous_y) * sin(0.523599);
+// }
 
 int		ftoi(float f)
 {
@@ -33,7 +33,7 @@ void	sort_by_coord(t_point *p1, t_point *p2, char c)
 {
 	t_point *t;
 	
-	if ((c == 'x' && p1->x > p2->x) || (c == 'y' && p1->y > p2 -> y))
+	if ((c == 'x' && p1->x > p2->x) || (c == 'y' && p1->y > p2->y))
 	{
 		t = p1;
 		p1 = p2;
