@@ -119,6 +119,8 @@ void	draw(t_fdf *st)
 	int	i;
 	t_point *p;
 
+	i = 0;
+	p = st->p_arr;
 	while (i < st->x * st->y)
 	{
 		if (st->p_arr[i].right)
