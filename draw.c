@@ -57,7 +57,7 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		x = p1.x;
 		y = p1.y;
 		shift = deltay / deltax * (p1.y < p2.y ? 1 : -1);
-		while (x <= p2.x)
+		while (x <= p2.x + 1)
 		{
 			mlx_pixel_put(st->mlx_ptr, st->win_ptr, x, ftoi(y), COLOR);
 			y += shift;
