@@ -18,12 +18,12 @@
 # include "libft/libft.h"
 # include "mlx.h"
 
-# define W 1440
-# define H 900
+# define W 1200
+# define H 700
 # define COLOR 0xff0000
 # define PI 3.141592653589793238462643
 # define MALLCHECK(x) if (!x) return (0)
-# define INDENT_PCT 0.3
+# define INDENT_PCT 0.2
 
 typedef struct	s_point
 {
