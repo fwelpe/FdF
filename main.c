@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 19:19:51 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/15 20:22:41 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/02/17 20:58:22 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ int		deal_key(int key, void *param)
 
 void	calc_scale_n_shift(t_fdf *st)
 {
+	if (st->x > st->y)
+	{
+		st->scale = (float)W * (1 - INDENT_PCT * 2) / st->x;
+		st->shx = W * INDENT_PCT;
+		st->shy = (H - st->scale * st->y) / 2;
+	}
+	else
+	{
+		st->scale = (float)H * (1 - INDENT_PCT * 2) / st->y;
+		st->shy = H * INDENT_PCT;
+		st->shx = (W - st->scale * st->x) / 2;
+	}	
+}
+
+/* void	calc_scale_n_shift(t_fdf *st)
+{
 	float	tmp;
 
 	tmp = (float)H * (1 - INDENT_PCT * 2) / st->y;
@@ -31,7 +47,7 @@ void	calc_scale_n_shift(t_fdf *st)
 	st->scale = tmp < st->scale ? tmp : st->scale;
 	st->shx = (float)W * INDENT_PCT;
 	st->shy = (float)H * INDENT_PCT;
-}
+} */
 
 int		p_arr_init(t_fdf *st)
 {
@@ -85,7 +101,7 @@ void	p_arr_add_scale_n_shift(t_fdf *st)
 int		st_init(t_fdf *st, char *n)
 {
 	st->mlx_ptr = mlx_init();
-	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, "эмеликсь пиксель пют");
+	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, "FdF 42");
 	st->n = n;
 	if (!fillall_validate(st) || !p_arr_init(st))
 		return (0);
