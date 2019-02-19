@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:08:34 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/11 18:48:58 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/02/19 14:19:38 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		fillall_validate(t_fdf *st)
 		return (0);
 	i = 0;
 	st->x = 0;
-	st->map = (int **)malloc(sizeof(int *) * st->y);
+	MALLCHECK((st->map = (int **)malloc(sizeof(int *) * st->y)));
 	while (get_next_line(fd, &l) > 0 && i < st->y)
 	{
 		w = ft_strsplit(l, ' ');

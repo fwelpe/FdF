@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 19:19:51 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/18 15:16:58 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/02/19 14:37:12 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int		deal_key(int key, void *param)
 
 int		p_arr_init(t_fdf *st)
 {
-	int i;
-	int j;
+	int 	i;
+	int 	j;
+	int		k;
+	t_point *curr;
+	int		curr_pos;
 
 	MALLCHECK((st->p_arr = (t_point*)malloc(sizeof(t_point) * st->x * st->y)));
 	i = 0;
@@ -34,19 +37,13 @@ int		p_arr_init(t_fdf *st)
 		j = 0;
 		while (j < st->x)
 		{
-			st->p_arr[st->x * i + j].x = j;
-			st->p_arr[st->x * i + j].y = i;
-			st->p_arr[st->x * i + j].z = st->map[i][j];
-			if (j != st->x - 1)
-				st->p_arr[st->x * i + j].right =
-			  &(st->p_arr[st->x * i + j + 1]);
-			else
-				st->p_arr[st->x * i + j].right = NULL;
-			if (i != st->y - 1)
-				st->p_arr[st->x * i + j].down =
-			  &(st->p_arr[st->x * (i + 1) + j]);
-			else
-				st->p_arr[st->x * i + j].down = NULL;
+			curr_pos = st->x * i + j;
+			curr = &(st->p_arr[curr_pos]);
+			curr->x = j;
+			curr->y = i;
+			curr->z = st->map[i][j];
+			curr->right = j != st->x - 1 ? &(st->p_arr[curr_pos + 1]) : NULL;
+			curr->down = i != st->y - 1 ? &(st->p_arr[curr_pos + st->x]) : NULL;
 			j++;
 		}
 		i++;
@@ -117,5 +114,4 @@ int 	main(int ac, char **av)
     //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);
 	mlx_key_hook(st.win_ptr, deal_key, (void *)0);
 	mlx_loop(st.mlx_ptr);
-
 }

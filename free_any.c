@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 16:51:06 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/11 19:22:45 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/02/19 14:07:52 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	free_doublechar(char **w)
 		w[i] = NULL;
 		i++;
 	}
+	free(w);
+	w = NULL;
 }
 
 void	free_line(char *l)
