@@ -22,28 +22,40 @@ int		deal_key(int key, void *param)
 	return (0);
 }
 
+int		ft_get_colour(char *str)
+{
+	char **w;
+
+	w = ft_strsplit(str, ',');
+	if (count_words(w) == 1)
+		return (-1);
+	return(ft_atoi_base(ft_strsub(w[1], 2, 6), 16));
+}
+
 int		p_arr_init(t_fdf *st)
 {
 	int 	i;
 	int 	j;
-	int		k;
+	// int		k;
 	t_point *curr;
 	int		curr_pos;
 
-	MALLCHECK((st->p_arr = (t_point*)malloc(sizeof(t_point) * st->x * st->y)));
+	
+	MALLCHECK((st->map->points = (t_point *)malloc(sizeof(t_point) * st->map->width * st->map->height)));
 	i = 0;
-	while (i < st->y)
+	while (i < st->map->height)
 	{
 		j = 0;
-		while (j < st->x)
+		while (j < st->map->width)
 		{
-			curr_pos = st->x * i + j;
-			curr = &(st->p_arr[curr_pos]);
+			curr_pos = st->map->width * i + j;
+			curr = &(st->map->points[curr_pos]);
 			curr->x = j;
 			curr->y = i;
-			curr->z = st->map[i][j];
-			curr->right = j != st->x - 1 ? &(st->p_arr[curr_pos + 1]) : NULL;
-			curr->down = i != st->y - 1 ? &(st->p_arr[curr_pos + st->x]) : NULL;
+			curr->z = ft_atoi(ft_strsplit(st->map_old[i][j], ',')[0]);
+			curr->colour = ft_get_colour(st->map_old[i][j]);
+			curr->right = j != st->map->width - 1 ? &(st->map->points[curr_pos + 1]) : NULL;
+			curr->down = i != st->map->height - 1 ? &(st->map->points[curr_pos + st->map->width]) : NULL;
 			j++;
 		}
 		i++;
@@ -53,17 +65,17 @@ int		p_arr_init(t_fdf *st)
 
 void	calc_scale_n_shift(t_fdf *st)
 {
-	if (st->x > st->y)
+	if (st->map->width > st->map->height)
 	{
-		st->scale = (float)W * (1 - INDENT_PCT * 2) / st->x;
+		st->scale = (float)W * (1 - INDENT_PCT * 2) / st->map->width;
 		st->shx = W * INDENT_PCT;
-		st->shy = (H - st->scale * st->y) / 2;
+		st->shy = (H - st->scale * st->map->height) / 2;
 	}
 	else
 	{
-		st->scale = (float)H * (1 - INDENT_PCT * 2) / st->y;
+		st->scale = (float)H * (1 - INDENT_PCT * 2) / st->map->height;
 		st->shy = H * INDENT_PCT;
-		st->shx = (W - st->scale * st->x) / 2;
+		st->shx = (W - st->scale * st->map->width) / 2;
 	}
 }
 
@@ -73,8 +85,8 @@ void	p_arr_add_scale_n_shift(t_fdf *st)
 	t_point	*p;
 
 	i = 0;
-	p = st->p_arr;
-	while (i < st->x * st->y)
+	p = st->map->points;
+	while (i < st->map->width * st->map->height)
 	{
 		p->x = p->x * st->scale + st->shx;
 		p->y = p->y * st->scale + st->shy;
@@ -107,7 +119,6 @@ int 	main(int ac, char **av)
 		ft_putendl_fd("Error!", 2);
 		return (0);
 	}
-	printf("%f\n", st.scale);
 	draw(&st);
 	//mlx_pixel_put(st.mlx_ptr, st.win_ptr, 1, 1, COLOR);
     //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);

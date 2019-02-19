@@ -124,20 +124,20 @@ void	draw(t_fdf *st)
 	t_point *p;
 
 	i = 0;
-	p = st->p_arr;
+	p = st->map->points;
 	clear_image(st->image);
-	while (i < st->x * st->y)
+	while (i < st->map->width * st->map->height)
 	{
-		iso(&(st->p_arr[i].x), &(st->p_arr[i].y), st->p_arr[i].z);
+		iso(&(p[i].x), &(p[i].y), p[i].z);
 		i++;
 	}
 	i = 0;
-	while (i < st->x * st->y)
+	while (i < st->map->width * st->map->height)
 	{
-		if (st->p_arr[i].right)
-			draw_line(st->p_arr[i], *(st->p_arr[i].right), st);
-		if (st->p_arr[i].down)
-			draw_line(st->p_arr[i], *(st->p_arr[i].down), st);
+		if (p[i].right)
+			draw_line(p[i], *(p[i].right), st);
+		if (p[i].down)
+			draw_line(p[i], *(p[i].down), st);
 		i++;
 	}
 	mlx_put_image_to_window(st->mlx_ptr, st->win_ptr, st->image->image_cont, 0, 0);

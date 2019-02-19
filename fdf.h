@@ -17,6 +17,7 @@
 # include <math.h>
 # include "libft/libft.h"
 # include "mlx.h"
+# include <stdio.h>
 
 # define W 1200
 # define H 700
@@ -30,6 +31,7 @@ typedef struct	s_point
 	float			x;
 	float			y;
 	float			z;
+	int				colour;
 	struct s_point	*right;
 	struct s_point	*down;
 }				t_point;
@@ -41,18 +43,29 @@ typedef struct		s_image
 	int			b_p_pix;
 }					t_image;
 
+typedef struct		s_map
+{
+	int		width;
+	int		height;
+	int		min_z;
+	int		max_z;
+	int		has_colour;
+	t_point	*points;
+}					t_map;
+
+
 typedef struct	s_fdf
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	char			*n;
-	int				x;
-	int				y;
-	int				**map;
+	// int				x;
+	// int				y;
+	char			***map_old;
 	float			scale;
 	int				shx;
 	int				shy;
-	t_point			*p_arr;
+	t_map			*map;
 	t_image			*image;
 }				t_fdf;
 
@@ -66,5 +79,6 @@ int				fillall_validate(t_fdf *st);
 //void			draw_lines(t_fdf *st);
 void	draw(t_fdf *st);
 t_image			*new_image(t_fdf *st);
+int			ft_atoi_base(char *nb, int base);
 
 #endif
