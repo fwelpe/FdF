@@ -34,6 +34,13 @@ typedef struct	s_point
 	struct s_point	*down;
 }				t_point;
 
+typedef struct		s_image
+{
+	void		*image_cont;
+	char		*adr;
+	int			b_p_pix;
+}					t_image;
+
 typedef struct	s_fdf
 {
 	void			*mlx_ptr;
@@ -46,9 +53,7 @@ typedef struct	s_fdf
 	int				shx;
 	int				shy;
 	t_point			*p_arr;
-	float			ax;
-	float			ay;
-	float			az;
+	t_image			*image;
 }				t_fdf;
 
 void			free_doublechar(char **w);
@@ -60,5 +65,6 @@ int				fill_lineint(char **w, int *l);
 int				fillall_validate(t_fdf *st);
 //void			draw_lines(t_fdf *st);
 void	draw(t_fdf *st);
+t_image			*new_image(t_fdf *st);
 
 #endif

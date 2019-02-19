@@ -89,13 +89,12 @@ int		st_init(t_fdf *st, char *n)
 	st->mlx_ptr = mlx_init();
 	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, "FdF 42");
 	st->n = n;
+	if(!(st->image = new_image(st)))
+		return (0);
 	if (!fillall_validate(st) || !p_arr_init(st))
 		return (0);
 	calc_scale_n_shift(st);
 	p_arr_add_scale_n_shift(st);
-	st->ax = PI / 6;
-	st->ay = PI / 6;
-	st->az = 0;
 	return (1);
 }
 

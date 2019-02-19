@@ -13,7 +13,45 @@
 #include <stdio.h>
 #include "fdf.h"
 
-static void iso(float *x, float *y, float z)
+void	image_set_pixel(t_image *image, int x, int y, int color)
+{
+	if (x < 0 || x >= W || y < 0 || y >= H)
+		return ;
+	*(int *)(image->adr + ((x + y * W) * image->b_p_pix)) = color;
+}
+
+void	clear_image(t_image *image)
+{
+	ft_bzero(image->adr, W * H * image->b_p_pix);
+}
+
+t_image	*del_image(t_fdf *st, t_image *img)
+{
+	if (img != NULL)
+	{
+		if (img->image_cont != NULL)
+			mlx_destroy_image(st->mlx_ptr, img->image_cont);
+		ft_memdel((void **)&img);
+	}
+	return (NULL);
+}
+
+t_image	*new_image(t_fdf *st)
+{
+	t_image		*img;
+	int	nil = 0;
+
+	if ((img = ft_memalloc(sizeof(t_image))) == NULL)
+		return (NULL);
+	if (!(img->image_cont = mlx_new_image(st->mlx_ptr, W, H)))
+		return (del_image(st, img));
+	img->adr = mlx_get_data_addr(img->image_cont, &img->b_p_pix, &nil,
+			&nil);
+	img->b_p_pix /= 8;
+	return (img);
+}
+
+void iso(float *x, float *y, float z)
 {
     float previous_x;
     float previous_y;
@@ -59,7 +97,7 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		while (x <= p2.x + 1)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				mlx_pixel_put(st->mlx_ptr, st->win_ptr, x, y, COLOR);
+				image_set_pixel(st->image, x, y, COLOR);
 			y += shift;
 			x++;
 		}
@@ -73,7 +111,7 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		while (y <= p2.y)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				mlx_pixel_put(st->mlx_ptr, st->win_ptr, x, y, COLOR);
+				image_set_pixel(st->image, x, y, COLOR);
 			x += shift;
 			y++;
 		}
@@ -87,6 +125,7 @@ void	draw(t_fdf *st)
 
 	i = 0;
 	p = st->p_arr;
+	clear_image(st->image);
 	while (i < st->x * st->y)
 	{
 		iso(&(st->p_arr[i].x), &(st->p_arr[i].y), st->p_arr[i].z);
@@ -101,4 +140,5 @@ void	draw(t_fdf *st)
 			draw_line(st->p_arr[i], *(st->p_arr[i].down), st);
 		i++;
 	}
+	mlx_put_image_to_window(st->mlx_ptr, st->win_ptr, st->image->image_cont, 0, 0);
 }
