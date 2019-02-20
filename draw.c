@@ -78,6 +78,14 @@ void	sort_by_coord(t_point *p1, t_point *p2, char c)
 	}
 }
 
+int		gradient(int colour1, int colour2, float dx, float dy, int n)
+{
+	float	len;
+
+	len = sqrt(pow(dx, 2) + pow(dy, 2));
+	return (get_height_colours(len, 0, n, colour1, colour2));
+}
+
 void	draw_line(t_point p1, t_point p2, t_fdf *st)
 {
 	float	deltax;
@@ -97,7 +105,7 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		while (x <= p2.x)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				image_set_pixel(st->image, x, y, p1.colour);
+				image_set_pixel(st->image, x, y, gradient(p2.colour, p1.colour, deltax, deltay, x - p1.x));
 			y += shift;
 			x++;
 		}
@@ -111,14 +119,14 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		while (y <= p2.y)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				image_set_pixel(st->image, x, y, p1.colour);
+				image_set_pixel(st->image, x, y, gradient(p2.colour, p1.colour, deltax, deltay, y - p1.y));
 			x += shift;
 			y++;
 		}
 	}
 }
 
-double		get_height_colours(double max, double min, int z)
+double		get_height_colours(double max, double min, int z, int col1, int col2)
 {
 	int		res[3];
 	int		c1;
@@ -126,16 +134,16 @@ double		get_height_colours(double max, double min, int z)
 	int		i;
 
 	i = 0;
-	c1 = AQUA >> 16;
-	c2 = PURPLE >> 16;
+	c1 = col1 >> 16;
+	c2 = col2 >> 16;
 	while (i < 3)
 	{
 		if (c1 > c2)
 			res[i] = c2 + ((z - min) / (max - min)) * (c1 - c2);
 		else
 			res[i] = c2 - ((z - min) / (max - min)) * (c2 - c1);
-		c1 = i == 0 ? (AQUA & 0xFF00) >> 8 : AQUA & 0xFF;
-		c2 = i == 0 ? (PURPLE & 0xFF00) >> 8 : PURPLE & 0xFF;
+		c1 = i == 0 ? (col1 & 0xFF00) >> 8 : col1 & 0xFF;
+		c2 = i == 0 ? (col2 & 0xFF00) >> 8 : col2 & 0xFF;
 		i++;
 	}
     return ((res[0] << 16) | (res[1] << 8) | res[2]);
@@ -151,15 +159,14 @@ void	set_colours(t_fdf *st)
 	if (st->map->has_colour)
 		while (++i < st->map->width * st->map->height)
 		{
-			p->colour = p->colour == -1 ? SPRING : p->colour;
+			p->colour = p->colour == -1 ? COLOUR : p->colour;
 			p++;
 		}
 	else
 	{
 		while (++i < st->map->width * st->map->height)
 		{
-			p->colour = get_height_colours(st->map->max_z, st->map->min_z, p->z);
-			// printf("z = %f, colour = %06X\n", p->z, p->colour);
+			p->colour = get_height_colours(st->map->max_z, st->map->min_z, p->z, UP, DOWN);
 			p++;
 		}
 	}

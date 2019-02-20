@@ -21,8 +21,12 @@
 
 # define W 1200
 # define H 700
+# define UP AQUA
+# define DOWN PURPLE
+# define COLOUR SPRING
 # define PURPLE 0x9900FF
 # define AQUA 0x00FFFF
+# define YELLOW 0xFFFF00
 # define SPRING 0x99FF00
 # define PI 3.141592653589793238462643
 # define MALLCHECK(x) if (!x) return (0)
@@ -85,5 +89,6 @@ void			iso(float *x, float *y, float z);
 void			prepare(t_fdf *st);
 void			set_colours(t_fdf *st);
 char			*ft_itoa_base(int value, int base);
+double		get_height_colours(double max, double min, int z, int col1, int col2);
 
 #endif

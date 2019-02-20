@@ -66,7 +66,6 @@ int		p_arr_init(t_fdf *st)
 		}
 		i++;
 	}
-	// printf("max = %d, min = %d, hc = %d\n", map->max_z, map->min_z, map->has_colour);
 	return (1);
 }
 
