@@ -42,20 +42,6 @@ int		count_y(t_fdf *st)
 	return (1);
 }
 
-int		fill_lineint(char **w, int *a)
-{
-	int	i;
-
-	i = 0;
-	while (w[i])
-	{
-		if (!ft_atoi_fdf(w[i], &(a[i])))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	ft_cp2darr(char **dst, char **src, int size)
 {
 	int	i;

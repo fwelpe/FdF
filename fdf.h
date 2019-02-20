@@ -74,11 +74,12 @@ void			free_line(char *l);
 void			free_all(char **w, char *l);
 int				count_words(char **splitted_words);
 int				count_y(t_fdf *st);
-int				fill_lineint(char **w, int *l);
 int				fillall_validate(t_fdf *st);
 //void			draw_lines(t_fdf *st);
-void	draw(t_fdf *st);
+void			draw(t_fdf *st);
 t_image			*new_image(t_fdf *st);
-int			ft_atoi_base(char *nb, int base);
+int				ft_atoi_base(char *nb, int base);
+void			iso(float *x, float *y, float z);
+void			prepare(t_fdf *st);
 
 #endif

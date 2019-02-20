@@ -123,14 +123,8 @@ void	draw(t_fdf *st)
 	int	i;
 	t_point *p;
 
-	i = 0;
 	p = st->map->points;
 	clear_image(st->image);
-	while (i < st->map->width * st->map->height)
-	{
-		iso(&(p[i].x), &(p[i].y), p[i].z);
-		i++;
-	}
 	i = 0;
 	while (i < st->map->width * st->map->height)
 	{

@@ -36,30 +36,37 @@ int		p_arr_init(t_fdf *st)
 {
 	int 	i;
 	int 	j;
-	// int		k;
 	t_point *curr;
 	int		curr_pos;
+	t_map	*map;
 
-	
-	MALLCHECK((st->map->points = (t_point *)malloc(sizeof(t_point) * st->map->width * st->map->height)));
+	map = st->map;
+	map->has_colour = 0;
+	map->max_z = ft_atoi(ft_strsplit(st->map_old[0][0], ',')[0]);
+	map->min_z = map->max_z;
+	MALLCHECK((map->points = (t_point *)malloc(sizeof(t_point) * map->width * map->height)));
 	i = 0;
-	while (i < st->map->height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < st->map->width)
+		while (j < map->width)
 		{
-			curr_pos = st->map->width * i + j;
-			curr = &(st->map->points[curr_pos]);
+			curr_pos = map->width * i + j;
+			curr = &(map->points[curr_pos]);
 			curr->x = j;
 			curr->y = i;
 			curr->z = ft_atoi(ft_strsplit(st->map_old[i][j], ',')[0]);
+			map->max_z = curr->z > map->max_z ? curr->z : map->max_z;
+			map->min_z = curr->z < map->min_z ? curr->z : map->min_z;
 			curr->colour = ft_get_colour(st->map_old[i][j]);
-			curr->right = j != st->map->width - 1 ? &(st->map->points[curr_pos + 1]) : NULL;
-			curr->down = i != st->map->height - 1 ? &(st->map->points[curr_pos + st->map->width]) : NULL;
+			map->has_colour = curr->colour != -1 ? 1 : map->has_colour;
+			curr->right = j != map->width - 1 ? &(map->points[curr_pos + 1]) : NULL;
+			curr->down = i != map->height - 1 ? &(map->points[curr_pos + map->width]) : NULL;
 			j++;
 		}
 		i++;
 	}
+	printf("max = %d, min = %d, hc = %d\n", map->max_z, map->min_z, map->has_colour);
 	return (1);
 }
 
@@ -110,6 +117,22 @@ int		st_init(t_fdf *st, char *n)
 	return (1);
 }
 
+void	prepare(t_fdf *st)
+{
+	int	i;
+	t_point *p;
+	t_map *map;
+
+	i = 0;
+	p = st->map->points;
+	map = st->map;
+	while (i < map->width * map->height)
+	{
+		iso(&(p[i].x), &(p[i].y), p[i].z);
+		i++;
+	}
+}
+
 int 	main(int ac, char **av)
 {
 	t_fdf	st;
@@ -119,6 +142,8 @@ int 	main(int ac, char **av)
 		ft_putendl_fd("Error!", 2);
 		return (0);
 	}
+	printf("%f\n", st.scale);
+	prepare(&st);
 	draw(&st);
 	//mlx_pixel_put(st.mlx_ptr, st.win_ptr, 1, 1, COLOR);
     //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);
