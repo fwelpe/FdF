@@ -21,14 +21,18 @@
 
 # define W 1200
 # define H 700
-# define UP AQUA
-# define DOWN PURPLE
+# define TO AQUA
+# define FROM PURPLE
 # define COLOUR SPRING
 # define PURPLE 0x9900FF
 # define AQUA 0x00FFFF
 # define YELLOW 0xFFFF00
 # define SPRING 0x99FF00
-# define PI 3.141592653589793238462643
+# define ESC 53
+# define LEFT 123
+# define RIGHT 124
+# define DOWN 125
+#define UP 126
 # define MALLCHECK(x) if (!x) return (0)
 # define INDENT_PCT 0.35
 

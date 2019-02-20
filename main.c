@@ -13,12 +13,36 @@
 #include <stdio.h>
 #include "fdf.h"
 
+void	move_fdf(int key, t_fdf *st)
+{
+	int i;
+	t_point	*p;
+
+	i = -1;
+	p = st->map->points;
+	while (++i < st->map->width * st->map->height)
+	{
+		if (key == UP)
+			p->y -= H / 25;
+		if (key == DOWN)
+			p->y += H / 25;
+		if (key == LEFT)
+			p->x -= W / 40;
+		if (key == RIGHT)
+			p->x += W / 40;
+		p++;
+	}
+	draw(st);
+}
+
 int		deal_key(int key, void *param)
 {
 	if (!param)
 	;
-	if (key == 53)
+	if (key == ESC)
 		exit (0);
+	if (key == LEFT || key == RIGHT || key == UP || key == DOWN)
+		move_fdf(key, param);		
 	return (0);
 }
 
@@ -147,6 +171,6 @@ int 	main(int ac, char **av)
 	draw(&st);
 	//mlx_pixel_put(st.mlx_ptr, st.win_ptr, 1, 1, COLOR);
     //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);
-	mlx_key_hook(st.win_ptr, deal_key, (void *)0);
+	mlx_key_hook(st.win_ptr, deal_key, (void *)&st);
 	mlx_loop(st.mlx_ptr);
 }

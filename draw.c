@@ -166,7 +166,7 @@ void	set_colours(t_fdf *st)
 	{
 		while (++i < st->map->width * st->map->height)
 		{
-			p->colour = get_height_colours(st->map->max_z, st->map->min_z, p->z, UP, DOWN);
+			p->colour = get_height_colours(st->map->max_z, st->map->min_z, p->z, TO, FROM);
 			p++;
 		}
 	}
