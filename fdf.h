@@ -84,5 +84,6 @@ int				ft_atoi_base(char *nb, int base);
 void			iso(float *x, float *y, float z);
 void			prepare(t_fdf *st);
 void			set_colours(t_fdf *st);
+char			*ft_itoa_base(int value, int base);
 
 #endif
