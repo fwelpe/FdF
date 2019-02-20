@@ -94,10 +94,10 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		x = p1.x;
 		y = p1.y;
 		shift = deltay / deltax * (p1.y < p2.y ? 1 : -1);
-		while (x <= p2.x + 1)
+		while (x <= p2.x)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				image_set_pixel(st->image, x, y, p2.colour);
+				image_set_pixel(st->image, x, y, p1.colour);
 			y += shift;
 			x++;
 		}
@@ -111,11 +111,56 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		while (y <= p2.y)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				image_set_pixel(st->image, x, y, p2.colour);
+				image_set_pixel(st->image, x, y, p1.colour);
 			x += shift;
 			y++;
 		}
 	}
+}
+
+double		get_height_colours(double max, double min, int z)
+{
+	int     red;
+    int     green;
+    int     blue;
+	int     red2 = 0x99;
+    int     green2 = 0x00;
+    int     blue2 = 0xFF;
+	int     red1 = 0x00;
+    int     green1 = 0xFF;
+    int     blue1 = 0xFF;
+	int		c1;
+	int		c2;
+	int		colour;
+	double	perc;
+
+	perc = (z - min) / (max - min);
+	// printf ("z = %d, max = %f, min = %f, perc = %f\n",z, max, min, perc);
+	c1 = red1;
+	c2 = red2;
+	if (c1 > c2)
+		colour = c2 + perc * (c1 - c2);
+	else
+		colour = c2 - perc * (c2 - c1);
+	red = colour;
+
+	c1 = green1;
+	c2 = green2;
+	if (c1 > c2)
+		colour = c2 + perc * (c1 - c2);
+	else
+		colour = c2 - perc * (c2 - c1);
+	green = colour;
+
+	c1 = blue1;
+	c2 = blue2;
+	if (c1 > c2)
+		colour = c2 + perc * (c1 - c2);
+	else
+		colour = c2 - perc * (c2 - c1);
+	blue = colour;
+	// printf("red = %02X, green = %02X, blue = %02X\n", red, green, blue);
+    return ((red << 16) | (green << 8) | blue);
 }
 
 void	set_colours(t_fdf *st)
@@ -128,14 +173,15 @@ void	set_colours(t_fdf *st)
 	if (st->map->has_colour)
 		while (++i < st->map->width * st->map->height)
 		{
-			p->colour = p->colour == -1 ? DEF_COLOUR : p->colour;
+			p->colour = p->colour == -1 ? SPRING : p->colour;
 			p++;
 		}
 	else
 	{
 		while (++i < st->map->width * st->map->height)
 		{
-			p->colour = COLOUR;
+			p->colour = get_height_colours(st->map->max_z, st->map->min_z, p->z);
+			// printf("z = %f, colour = %06X\n", p->z, p->colour);
 			p++;
 		}
 	}

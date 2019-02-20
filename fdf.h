@@ -21,8 +21,9 @@
 
 # define W 1200
 # define H 700
-# define DEF_COLOUR 0x9900FF
-# define COLOUR 0x00FFFF
+# define PURPLE 0x9900FF
+# define AQUA 0x00FFFF
+# define SPRING 0x99FF00
 # define PI 3.141592653589793238462643
 # define MALLCHECK(x) if (!x) return (0)
 # define INDENT_PCT 0.35

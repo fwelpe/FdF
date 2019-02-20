@@ -66,7 +66,7 @@ int		p_arr_init(t_fdf *st)
 		}
 		i++;
 	}
-	printf("max = %d, min = %d, hc = %d\n", map->max_z, map->min_z, map->has_colour);
+	// printf("max = %d, min = %d, hc = %d\n", map->max_z, map->min_z, map->has_colour);
 	return (1);
 }
 
@@ -113,6 +113,7 @@ int		st_init(t_fdf *st, char *n)
 	if (!fillall_validate(st) || !p_arr_init(st))
 		return (0);
 	calc_scale_n_shift(st);
+	set_colours(st);
 	p_arr_add_scale_n_shift(st);
 	return (1);
 }
@@ -131,7 +132,6 @@ void	prepare(t_fdf *st)
 		iso(&(p[i].x), &(p[i].y), p[i].z);
 		i++;
 	}
-	set_colours(st);
 }
 
 int 	main(int ac, char **av)
