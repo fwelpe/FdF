@@ -21,7 +21,8 @@
 
 # define W 1200
 # define H 700
-# define COLOR 0xff0000
+# define DEF_COLOUR 0x9900FF
+# define COLOUR 0x00FFFF
 # define PI 3.141592653589793238462643
 # define MALLCHECK(x) if (!x) return (0)
 # define INDENT_PCT 0.35
@@ -81,5 +82,6 @@ t_image			*new_image(t_fdf *st);
 int				ft_atoi_base(char *nb, int base);
 void			iso(float *x, float *y, float z);
 void			prepare(t_fdf *st);
+void			set_colours(t_fdf *st);
 
 #endif

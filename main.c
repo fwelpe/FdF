@@ -131,6 +131,7 @@ void	prepare(t_fdf *st)
 		iso(&(p[i].x), &(p[i].y), p[i].z);
 		i++;
 	}
+	set_colours(st);
 }
 
 int 	main(int ac, char **av)

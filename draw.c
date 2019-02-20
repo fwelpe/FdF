@@ -97,7 +97,7 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		while (x <= p2.x + 1)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				image_set_pixel(st->image, x, y, COLOR);
+				image_set_pixel(st->image, x, y, p2.colour);
 			y += shift;
 			x++;
 		}
@@ -111,11 +111,35 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		while (y <= p2.y)
 		{
 			if (x >=0 && x <= W && y >= 0 && y <= H)
-				image_set_pixel(st->image, x, y, COLOR);
+				image_set_pixel(st->image, x, y, p2.colour);
 			x += shift;
 			y++;
 		}
 	}
+}
+
+void	set_colours(t_fdf *st)
+{
+	t_point	*p;
+	int		i;
+
+	i = -1;
+	p = st->map->points;
+	if (st->map->has_colour)
+		while (++i < st->map->width * st->map->height)
+		{
+			p->colour = p->colour == -1 ? DEF_COLOUR : p->colour;
+			p++;
+		}
+	else
+	{
+		while (++i < st->map->width * st->map->height)
+		{
+			p->colour = COLOUR;
+			p++;
+		}
+	}
+	
 }
 
 void	draw(t_fdf *st)
