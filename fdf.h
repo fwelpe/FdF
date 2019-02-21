@@ -69,10 +69,21 @@ typedef struct		s_map
 
 typedef struct	s_cam
 {
+	float	x;
+	float	y;
 	int		shift_x;
 	int		shift_y;
 	float		scale;
 }				t_cam;
+
+typedef struct		s_mouse
+{
+	int		button;
+	int			x;
+	int			y;
+	int			lastx;
+	int			lasty;
+}					t_mouse;
 
 typedef struct	s_fdf
 {
@@ -86,7 +97,10 @@ typedef struct	s_fdf
 	t_map			*map;
 	t_image			*image;
 	t_cam			*cam;
+	t_mouse			*mouse;
 }				t_fdf;
+
+
 
 void			free_doublechar(char **w);
 void			free_line(char *l);
@@ -102,7 +116,7 @@ char			*ft_itoa_base(int value, int base);
 int		st_init(t_fdf *st, char *n);
 void	prepare_points(t_fdf *st);
 
-int				deal_key(int key, void *st);
+int				deal_key(int key, t_fdf *st);
 void	p_arr_add_scale_n_shift(t_fdf *st);
 void	p_arr_del_shift(t_fdf *st);
 void	calc_scale_n_shift(t_fdf *st);
@@ -115,5 +129,10 @@ void	image_set_pixel(t_image *image, int x, int y, int color);
 void	clear_image(t_image *image);
 void	zero_cam(t_fdf *st);
 int		ft_pow(int nb, int pow);
+int		mouse(t_fdf *st);
+int mouse_press(int button, int x, int y, t_fdf *st);
+int mouse_release(int button, int x, int y, t_fdf *st);
+int mouse_move(int x, int y, t_fdf *st);
+void	rotate(t_point *p, t_cam *r, t_fdf *st);
 
 #endif

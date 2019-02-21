@@ -22,10 +22,12 @@ int 	main(int ac, char **av)
 		return (0);
 	}
 	prepare_points(&st);
+	mouse(&st);
 	draw(&st);
 	printf("%f\n", st.scale);
-	//mlx_pixel_put(st.mlx_ptr, st.win_ptr, 1, 1, COLOR);
-    //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);
-	mlx_key_hook(st.win_ptr, deal_key, (void *)&st);
+	mlx_key_hook(st.win_ptr, deal_key, &st);
+	mlx_hook(st.win_ptr, 4, 0, mouse_press, (void *)&st);
+	mlx_hook(st.win_ptr, 5, 0, mouse_release, (void *)&st);
+	mlx_hook(st.win_ptr, 6, 0, mouse_move, (void *)&st);
 	mlx_loop(st.mlx_ptr);
 }

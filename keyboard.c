@@ -41,7 +41,7 @@ void	handle_space(t_fdf *st)
 	draw(st);
 }
 
-int		deal_key(int key, void *st)
+int		deal_key(int key, t_fdf *st)
 {
 	if (key == ESC)
 		exit (0);

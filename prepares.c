@@ -93,12 +93,25 @@ void	prepare_points(t_fdf *st)
 	int i;
 	t_map *map;
 
-	p_arr_del_shift(st);
-	p_arr_add_scale_n_shift(st);
 	map = st->map;
+	p_arr_del_shift(st);
+	i = -1;
+	// while (++i < map->height * map->width)
+	// {
+		// map->points->x -= (double)(map->width - 1) / 2.0f;
+		// map->points->y -= (double)(map->height - 1) / 2.0f;
+		// map->points->z -= (double)(map->min_z + map->max_z) / 2.0f;
+		// rotate(&map->points[i], st->cam, st);
+	// }
+	p_arr_add_scale_n_shift(st);
+	
 	i = -1;
 	while (++i < map->height * map->width)
 	{
+		// map->points->x -= (double)(map->width - 1) / 2.0f;
+		// map->points->y -= (double)(map->height - 1) / 2.0f;
+		// map->points->z -= (double)(map->min_z + map->max_z) / 2.0f;
+		rotate(&map->points[i], st->cam, st);
 		map->iso[i].colour = map->points[i].colour;
 		map->iso[i].x = map->points[i].x;
 		map->iso[i].y = map->points[i].y;
