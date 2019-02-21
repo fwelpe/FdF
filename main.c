@@ -15,23 +15,15 @@
 
 void	move_fdf(int key, t_fdf *st)
 {
-	int i;
-	t_point	*p;
-
-	i = -1;
-	p = st->map->points;
-	while (++i < st->map->width * st->map->height)
-	{
-		if (key == UP)
-			p->y -= H / 25;
-		if (key == DOWN)
-			p->y += H / 25;
-		if (key == LEFT)
-			p->x -= W / 40;
-		if (key == RIGHT)
-			p->x += W / 40;
-		p++;
-	}
+	if (key == UP)
+		st->cam->shift_y -= H / 25;
+	if (key == DOWN)
+		st->cam->shift_y += H / 25;
+	if (key == LEFT)
+		st->cam->shift_x -= W / 40;
+	if (key == RIGHT)
+		st->cam->shift_x += W / 40;
+	prepare_points(st);
 	draw(st);
 }
 
@@ -46,7 +38,9 @@ int		deal_key(int key, void *st)
 		p_arr_init(st);
 		set_colours(st);
 		p_arr_add_scale_n_shift(st);
-		prepare(st);
+		prepare_points(st);
+		((t_fdf *)st)->cam->shift_x = 0;
+		((t_fdf *)st)->cam->shift_y = 0;
 		draw(st);
 	}	
 	return (0);
@@ -60,6 +54,31 @@ int		ft_get_colour(char *str)
 	if (count_words(w) == 1)
 		return (-1);
 	return(ft_atoi_base(ft_strsub(w[1], 2, 6), 16));
+}
+
+int	r_d_for_iso(t_map *map)
+{
+	int 	i;
+	int 	j;
+	t_point *curr;
+	int		curr_pos;
+
+	i = 0;
+	MALLCHECK((map->iso = (t_point *)malloc(sizeof(t_point) * map->width * map->height)));
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			curr_pos = map->width * i + j;
+			curr = &(map->iso[curr_pos]);
+			curr->right = j != map->width - 1 ? &(map->iso[curr_pos + 1]) : NULL;
+			curr->down = i != map->height - 1 ? &(map->iso[curr_pos + map->width]) : NULL;
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
 int		p_arr_init(t_fdf *st)
@@ -96,6 +115,7 @@ int		p_arr_init(t_fdf *st)
 		}
 		i++;
 	}
+	r_d_for_iso(map);
 	return (1);
 }
 
@@ -144,22 +164,25 @@ int		st_init(t_fdf *st, char *n)
 	calc_scale_n_shift(st);
 	set_colours(st);
 	p_arr_add_scale_n_shift(st);
+	MALLCHECK((st->cam = (t_cam *)malloc(sizeof(t_cam))));
+	st->cam->shift_x = 0;
+	st->cam->shift_y = 0;
 	return (1);
 }
 
-void	prepare(t_fdf *st)
+void	prepare_points(t_fdf *st)
 {
-	int	i;
-	t_point *p;
+	int i;
 	t_map *map;
 
-	i = 0;
-	p = st->map->points;
 	map = st->map;
-	while (i < map->width * map->height)
+	i = -1;
+	while (++i < map->height * map->width)
 	{
-		iso(&(p[i].x), &(p[i].y), p[i].z);
-		i++;
+		map->iso[i].colour = map->points[i].colour;
+		map->iso[i].x = map->points[i].x;
+		map->iso[i].y = map->points[i].y;
+		map->iso[i].z = map->points[i].z;
 	}
 }
 
@@ -173,7 +196,7 @@ int 	main(int ac, char **av)
 		return (0);
 	}
 	printf("%f\n", st.scale);
-	prepare(&st);
+	prepare_points(&st);
 	draw(&st);
 	//mlx_pixel_put(st.mlx_ptr, st.win_ptr, 1, 1, COLOR);
     //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);

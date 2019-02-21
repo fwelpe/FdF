@@ -173,12 +173,31 @@ void	set_colours(t_fdf *st)
 	
 }
 
+void	prepare(t_fdf *st)
+{
+	int	i;
+	t_point *p;
+	t_map *map;
+
+	i = 0;
+	p = st->map->iso;
+	map = st->map;
+	while (i < map->width * map->height)
+	{
+		iso(&(p[i].x), &(p[i].y), p[i].z);
+		p[i].x += st->cam->shift_x;
+		p[i].y += st->cam->shift_y;
+		i++;
+	}
+}
+
 void	draw(t_fdf *st)
 {
 	int	i;
 	t_point *p;
 
-	p = st->map->points;
+	p = st->map->iso;
+	prepare(st);
 	clear_image(st->image);
 	i = 0;
 	while (i < st->map->width * st->map->height)

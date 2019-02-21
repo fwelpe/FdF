@@ -64,22 +64,27 @@ typedef struct		s_map
 	int		max_z;
 	int		has_colour;
 	t_point	*points;
+	t_point	*iso;
 }					t_map;
 
+typedef struct	s_cam
+{
+	int		shift_x;
+	int		shift_y;
+}				t_cam;
 
 typedef struct	s_fdf
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	char			*n;
-	// int				x;
-	// int				y;
 	char			***map_old;
 	float			scale;
 	int				shx;
 	int				shy;
 	t_map			*map;
 	t_image			*image;
+	t_cam			*cam;
 }				t_fdf;
 
 void			free_doublechar(char **w);
@@ -100,5 +105,6 @@ double		get_height_colours(double max, double min, int z, int col1, int col2);
 int		st_init(t_fdf *st, char *n);
 void	p_arr_add_scale_n_shift(t_fdf *st);
 int		p_arr_init(t_fdf *st);
+void	prepare_points(t_fdf *st);
 
 #endif
