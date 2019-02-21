@@ -32,6 +32,9 @@
 # define LEFT 123
 # define RIGHT 124
 # define DOWN 125
+# define SPACE 49
+# define PLUS 24
+# define MINUS 27
 #define UP 126
 # define MALLCHECK(x) if (!x) return (0)
 # define INDENT_PCT 0.35
@@ -94,5 +97,8 @@ void			prepare(t_fdf *st);
 void			set_colours(t_fdf *st);
 char			*ft_itoa_base(int value, int base);
 double		get_height_colours(double max, double min, int z, int col1, int col2);
+int		st_init(t_fdf *st, char *n);
+void	p_arr_add_scale_n_shift(t_fdf *st);
+int		p_arr_init(t_fdf *st);
 
 #endif

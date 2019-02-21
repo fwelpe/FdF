@@ -35,14 +35,20 @@ void	move_fdf(int key, t_fdf *st)
 	draw(st);
 }
 
-int		deal_key(int key, void *param)
+int		deal_key(int key, void *st)
 {
-	if (!param)
-	;
 	if (key == ESC)
 		exit (0);
 	if (key == LEFT || key == RIGHT || key == UP || key == DOWN)
-		move_fdf(key, param);		
+		move_fdf(key, st);
+	if (key == SPACE)
+	{
+		p_arr_init(st);
+		set_colours(st);
+		p_arr_add_scale_n_shift(st);
+		prepare(st);
+		draw(st);
+	}	
 	return (0);
 }
 
