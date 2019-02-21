@@ -98,16 +98,22 @@ int				fillall_validate(t_fdf *st);
 void			draw(t_fdf *st);
 t_image			*new_image(t_fdf *st);
 int				ft_atoi_base(char *nb, int base);
-void			iso(float *x, float *y, float z);
-void			prepare(t_fdf *st);
-void			set_colours(t_fdf *st);
 char			*ft_itoa_base(int value, int base);
-double		get_height_colours(double max, double min, int z, int col1, int col2);
 int		st_init(t_fdf *st, char *n);
-void	p_arr_add_scale(t_fdf *st);
-void	p_arr_add_shift(t_fdf *st);
-void	p_arr_del_shift(t_fdf *st);
-int		p_arr_init(t_fdf *st);
 void	prepare_points(t_fdf *st);
+
+int				deal_key(int key, void *st);
+void	p_arr_add_scale_n_shift(t_fdf *st);
+void	p_arr_del_shift(t_fdf *st);
+void	calc_scale_n_shift(t_fdf *st);
+int		get_colour(char *str);
+int		gradient(int colour1, int colour2, float dx, float dy, int n);
+void			set_colours(t_fdf *st);
+int		p_arr_init(t_fdf *st);
+void			prepare_iso(t_fdf *st);
+void	image_set_pixel(t_image *image, int x, int y, int color);
+void	clear_image(t_image *image);
+void	zero_cam(t_fdf *st);
+int		ft_pow(int nb, int pow);
 
 #endif

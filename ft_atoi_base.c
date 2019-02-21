@@ -46,7 +46,7 @@ int			ft_atoi_base(char *nb, int base)
 	length = length_number(nb, base) - 1;
 	while (*nb && length >= 0 && convert_and_check_nb(*nb, base) != -1)
 	{
-		result += convert_and_check_nb(*nb, base) * pow(base, length);
+		result += convert_and_check_nb(*nb, base) * ft_pow(base, length);
 		nb++;
 		length--;
 	}

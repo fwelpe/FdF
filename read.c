@@ -55,11 +55,25 @@ int	ft_cp2darr(char **dst, char **src, int size)
 	return (1);
 }
 
+int		map_old_solve(t_fdf *st, char *l, int i)
+{
+	char	**w;
+
+	w = ft_strsplit(l, ' ');
+	if (i == 0)
+		st->map->width = count_words(w);
+	else if (st->map->width != count_words(w) || st->map->width == 0)
+		return (0);
+	MALLCHECK((st->map_old[i] = (char **)malloc(sizeof(char *) * st->map->width)));
+	ft_cp2darr(st->map_old[i], w, st->map->width);
+	free_all(w, l);
+	return (1);
+}
+
 int		fillall_validate(t_fdf *st)
 {
 	int		fd;
 	char	*l;
-	char	**w;
 	int		i;
 
 	MALLCHECK((st->map = (t_map *)malloc(sizeof(t_map))));
@@ -70,14 +84,7 @@ int		fillall_validate(t_fdf *st)
 	MALLCHECK((st->map_old = (char ***)malloc(sizeof(char **) * st->map->height)));
 	while (get_next_line(fd, &l) > 0 && i < st->map->height)
 	{
-		w = ft_strsplit(l, ' ');
-		if (i == 0)
-			st->map->width = count_words(w);
-		else if (st->map->width != count_words(w) || st->map->width == 0)
-			return (0);
-		MALLCHECK((st->map_old[i] = (char **)malloc(sizeof(char *) * st->map->width)));
-		ft_cp2darr(st->map_old[i], w, st->map->width);
-		free_all(w, l);
+		map_old_solve(st, l, i);
 		i++;
 	}
 	return (1);
