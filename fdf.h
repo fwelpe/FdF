@@ -71,6 +71,7 @@ typedef struct	s_cam
 {
 	int		shift_x;
 	int		shift_y;
+	float		scale;
 }				t_cam;
 
 typedef struct	s_fdf
@@ -103,7 +104,9 @@ void			set_colours(t_fdf *st);
 char			*ft_itoa_base(int value, int base);
 double		get_height_colours(double max, double min, int z, int col1, int col2);
 int		st_init(t_fdf *st, char *n);
-void	p_arr_add_scale_n_shift(t_fdf *st);
+void	p_arr_add_scale(t_fdf *st);
+void	p_arr_add_shift(t_fdf *st);
+void	p_arr_del_shift(t_fdf *st);
 int		p_arr_init(t_fdf *st);
 void	prepare_points(t_fdf *st);
 

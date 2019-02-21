@@ -27,6 +27,37 @@ void	move_fdf(int key, t_fdf *st)
 	draw(st);
 }
 
+void	zoom(int key, t_fdf *st)
+{
+	float	delta;
+
+	delta = (100 / sqrt(pow(st->map->height, 2) + pow(st->map->width, 2)));
+	if (key == PLUS)
+		st->cam->scale = st->scale + delta;
+	if (key == MINUS && st->scale > delta)
+		st->cam->scale = st->scale - delta;
+	prepare_points(st);
+	draw(st);
+}
+
+void	handle_space(t_fdf *st)
+{
+	printf("22 %f, x = %f, shx = %d\n", st->scale, st->map->points[2].x, st->shx);
+	st->cam->shift_x = 0;
+	st->cam->shift_y = 0;
+	if (st->map->width > st->map->height)
+		st->scale = (float)W * (1 - INDENT_PCT * 2) / st->map->width;
+	else
+		st->scale = (float)H * (1 - INDENT_PCT * 2) / st->map->height;
+	st->cam->scale = pow(st->scale, 2);
+	p_arr_init(st);
+	set_colours(st);
+	p_arr_add_scale(st);
+	p_arr_add_shift(st);
+	prepare_points(st);
+	draw(st);
+}
+
 int		deal_key(int key, void *st)
 {
 	if (key == ESC)
@@ -35,14 +66,10 @@ int		deal_key(int key, void *st)
 		move_fdf(key, st);
 	if (key == SPACE)
 	{
-		p_arr_init(st);
-		set_colours(st);
-		p_arr_add_scale_n_shift(st);
-		prepare_points(st);
-		((t_fdf *)st)->cam->shift_x = 0;
-		((t_fdf *)st)->cam->shift_y = 0;
-		draw(st);
-	}	
+		handle_space(st);
+	}
+	if (key == PLUS || key == MINUS)
+		zoom(key, st);
 	return (0);
 }
 
@@ -135,7 +162,7 @@ void	calc_scale_n_shift(t_fdf *st)
 	}
 }
 
-void	p_arr_add_scale_n_shift(t_fdf *st)
+void	p_arr_add_scale(t_fdf *st)
 {
 	int		i;
 	t_point	*p;
@@ -144,9 +171,42 @@ void	p_arr_add_scale_n_shift(t_fdf *st)
 	p = st->map->points;
 	while (i < st->map->width * st->map->height)
 	{
-		p->x = p->x * st->scale + st->shx;
-		p->y = p->y * st->scale + st->shy;
-		p->z = p->z * st->scale;
+		p->x = p->x / st->scale * st->cam->scale;
+		p->y = p->y / st->scale * st->cam->scale;
+		p->z = p->z / st->scale * st->cam->scale;
+		p++;
+		i++;
+	}
+	st->scale = st->cam->scale;
+}
+
+void	p_arr_add_shift(t_fdf *st)
+{
+	int		i;
+	t_point	*p;
+
+	i = 0;
+	p = st->map->points;
+	while (i < st->map->width * st->map->height)
+	{
+		p->x = p->x + st->shx;
+		p->y = p->y + st->shy;
+		p++;
+		i++;
+	}
+}
+
+void	p_arr_del_shift(t_fdf *st)
+{
+	int		i;
+	t_point	*p;
+
+	i = 0;
+	p = st->map->points;
+	while (i < st->map->width * st->map->height)
+	{
+		p->x = p->x - st->shx;
+		p->y = p->y - st->shy;
 		p++;
 		i++;
 	}
@@ -163,10 +223,12 @@ int		st_init(t_fdf *st, char *n)
 		return (0);
 	calc_scale_n_shift(st);
 	set_colours(st);
-	p_arr_add_scale_n_shift(st);
 	MALLCHECK((st->cam = (t_cam *)malloc(sizeof(t_cam))));
 	st->cam->shift_x = 0;
 	st->cam->shift_y = 0;
+	st->cam->scale = pow(st->scale, 2);
+	p_arr_add_scale(st);
+	p_arr_add_shift(st);
 	return (1);
 }
 
@@ -175,6 +237,10 @@ void	prepare_points(t_fdf *st)
 	int i;
 	t_map *map;
 
+	printf("%f, x = %f, shx = %d\n", st->scale, st->map->points[2].x, st->shx);
+	p_arr_del_shift(st);
+	p_arr_add_scale(st);
+	p_arr_add_shift(st);
 	map = st->map;
 	i = -1;
 	while (++i < map->height * map->width)
@@ -184,6 +250,7 @@ void	prepare_points(t_fdf *st)
 		map->iso[i].y = map->points[i].y;
 		map->iso[i].z = map->points[i].z;
 	}
+	printf("%f, x = %f, shx = %d\n", st->scale, st->map->points[2].x, st->shx);
 }
 
 int 	main(int ac, char **av)
@@ -195,9 +262,11 @@ int 	main(int ac, char **av)
 		ft_putendl_fd("Error!", 2);
 		return (0);
 	}
-	printf("%f\n", st.scale);
+	// printf("%f, x = %f, shx = %d\n", st.scale, st.map->points[0].x, st.shx);
 	prepare_points(&st);
+	// printf("%f, x = %f\n", st.scale, st.map->points[1].x);
 	draw(&st);
+	printf("%f\n", st.scale);
 	//mlx_pixel_put(st.mlx_ptr, st.win_ptr, 1, 1, COLOR);
     //mlx_pixel_put(st.mlx_ptr, st.win_ptr, 251, 250, 0x999999);
 	mlx_key_hook(st.win_ptr, deal_key, (void *)&st);
