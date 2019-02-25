@@ -71,8 +71,8 @@ typedef struct	s_cam
 {
 	float	x;
 	float	y;
-	int		shift_x;
-	int		shift_y;
+	float		shift_x;
+	float	shift_y;
 	float		scale;
 }				t_cam;
 

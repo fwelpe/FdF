@@ -15,7 +15,7 @@ int mouse_press(int button, int x, int y, t_fdf *st)
 {
 	(void)x;
 	(void)y;
-	// printf("button = %d\n", st->mouse->button);
+	printf("x = %d, y = %d\n", x, y);
 	st->mouse->button = button;
 	// printf("button = %d\n", st->mouse->button);
 	return (0);

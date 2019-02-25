@@ -29,10 +29,10 @@ void	zoom_fdf(int key, t_fdf *st)
 
 void	handle_space(t_fdf *st)
 {
-	if (st->map->width > st->map->height)
-		st->scale = (float)W * (1 - INDENT_PCT * 2) / st->map->width;
-	else
-		st->scale = (float)H * (1 - INDENT_PCT * 2) / st->map->height;
+	// if (st->map->width > st->map->height)
+	// 	st->scale = (float)W * (1 - INDENT_PCT * 2) / st->map->width;
+	// else
+	// 	st->scale = (float)H * (1 - INDENT_PCT * 2) / st->map->height;
 	zero_cam(st);
 	p_arr_init(st);
 	set_colours(st);
