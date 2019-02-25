@@ -20,9 +20,9 @@ void	zoom_fdf(int key, t_fdf *st)
 
 	delta = (100 / sqrt(pow(st->map->height, 2) + pow(st->map->width, 2)));
 	if (key == PLUS)
-		st->cam->scale = st->scale + delta;
-	if (key == MINUS && st->scale > delta)
-		st->cam->scale = st->scale - delta;
+		st->cam->scale += delta;
+	if (key == MINUS && st->cam->scale > delta)
+		st->cam->scale -= delta;
 	prepare_points(st);
 	draw(st);
 }
@@ -36,7 +36,7 @@ void	handle_space(t_fdf *st)
 	zero_cam(st);
 	p_arr_init(st);
 	set_colours(st);
-	p_arr_add_scale_n_shift(st);
+	// p_arr_add_scale_n_shift(st);
 	prepare_points(st);
 	draw(st);
 }

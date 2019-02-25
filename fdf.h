@@ -92,8 +92,8 @@ typedef struct	s_fdf
 	char			*n;
 	char			***map_old;
 	float			scale;
-	int				shx;
-	int				shy;
+	float				shx;
+	float				shy;
 	t_map			*map;
 	t_image			*image;
 	t_cam			*cam;
@@ -134,5 +134,6 @@ int mouse_press(int button, int x, int y, t_fdf *st);
 int mouse_release(int button, int x, int y, t_fdf *st);
 int mouse_move(int x, int y, t_fdf *st);
 void	rotate(t_point *p, t_cam *r, t_fdf *st);
+void iso(float *x, float *y, float z);
 
 #endif

@@ -1,20 +1,9 @@
 #include "fdf.h"
 
-void	calc_scale_n_shift(t_fdf *st)
-{
-	if (st->map->width > st->map->height)
-	{
-		st->scale = (float)W * (1 - INDENT_PCT * 2) / st->map->width;
-		st->shx = W * INDENT_PCT;
-		st->shy = (H - st->scale * st->map->height) / 2;
-	}
-	else
-	{
-		st->scale = (float)H * (1 - INDENT_PCT * 2) / st->map->height;
-		st->shy = H * INDENT_PCT;
-		st->shx = (W - st->scale * st->map->width) / 2;
-	}
-}
+// void	calc_scale_n_shift(t_fdf *st)
+// {
+	
+// }
 
 void	p_arr_add_scale_n_shift(t_fdf *st)
 {

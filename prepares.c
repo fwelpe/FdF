@@ -80,11 +80,13 @@ int		st_init(t_fdf *st, char *n)
 		return (0);
 	if (!fillall_validate(st) || !p_arr_init(st))
 		return (0);
-	calc_scale_n_shift(st);
+	// calc_scale_n_shift(st);
+	st->shx = 0;
+	st->shy = 0;
 	set_colours(st);
 	MALLCHECK((st->cam = (t_cam *)malloc(sizeof(t_cam))));
 	zero_cam(st);
-	p_arr_add_scale_n_shift(st);
+	// p_arr_add_scale_n_shift(st);
 	return (1);
 }
 
@@ -94,7 +96,7 @@ void	prepare_points(t_fdf *st)
 	t_map *map;
 
 	map = st->map;
-	p_arr_del_shift(st);
+	// p_arr_del_shift(st);
 	i = -1;
 	// while (++i < map->height * map->width)
 	// {
@@ -103,7 +105,7 @@ void	prepare_points(t_fdf *st)
 		// map->points->z -= (double)(map->min_z + map->max_z) / 2.0f;
 		// rotate(&map->points[i], st->cam, st);
 	// }
-	p_arr_add_scale_n_shift(st);
+	// p_arr_add_scale_n_shift(st);
 	
 	i = -1;
 	while (++i < map->height * map->width)
@@ -111,7 +113,7 @@ void	prepare_points(t_fdf *st)
 		// map->points->x -= (double)(map->width - 1) / 2.0f;
 		// map->points->y -= (double)(map->height - 1) / 2.0f;
 		// map->points->z -= (double)(map->min_z + map->max_z) / 2.0f;
-		rotate(&map->points[i], st->cam, st);
+		// rotate(&map->points[i], st->cam, st);
 		map->iso[i].colour = map->points[i].colour;
 		map->iso[i].x = map->points[i].x;
 		map->iso[i].y = map->points[i].y;
