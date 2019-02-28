@@ -182,6 +182,4 @@ void			ft_lstdel_fn(void *ptr, size_t size);
 
 int				get_next_line(const int fd, char **line);
 
-int				ft_atoi_fdf(char *str, int *num_in);
-
 #endif

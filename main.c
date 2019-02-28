@@ -21,10 +21,9 @@ int 	main(int ac, char **av)
 		ft_putendl_fd("Error!", 2);
 		return (0);
 	}
-	prepare_points(&st);
-	mouse(&st);
+	copy_points(st.map);
+	init_mouse(&st);
 	draw(&st);
-	// printf("%f\n", st.scale);
 	mlx_key_hook(st.win_ptr, deal_key, &st);
 	mlx_hook(st.win_ptr, 4, 0, mouse_press, (void *)&st);
 	mlx_hook(st.win_ptr, 5, 0, mouse_release, (void *)&st);

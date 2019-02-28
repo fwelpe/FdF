@@ -3,14 +3,14 @@
 void	move_fdf(int key, t_fdf *st)
 {
 	if (key == UP)
-		st->cam->shift_y += H / 25;
+		st->cam->move_y += H / 25;
 	if (key == DOWN)
-		st->cam->shift_y -= H / 25;
+		st->cam->move_y -= H / 25;
 	if (key == LEFT)
-		st->cam->shift_x += W / 40;
+		st->cam->move_x += W / 40;
 	if (key == RIGHT)
-		st->cam->shift_x -= W / 40;
-	prepare_points(st);
+		st->cam->move_x -= W / 40;
+	copy_points(st->map);
 	draw(st);
 }
 
@@ -23,21 +23,15 @@ void	zoom_fdf(int key, t_fdf *st)
 		st->cam->scale += delta;
 	if (key == MINUS && st->cam->scale > delta)
 		st->cam->scale -= delta;
-	prepare_points(st);
+	st->cam->zoom = 1;
+	copy_points(st->map);
 	draw(st);
 }
 
 void	handle_space(t_fdf *st)
 {
-	// if (st->map->width > st->map->height)
-	// 	st->scale = (float)W * (1 - INDENT_PCT * 2) / st->map->width;
-	// else
-	// 	st->scale = (float)H * (1 - INDENT_PCT * 2) / st->map->height;
 	zero_cam(st);
-	p_arr_init(st);
-	set_colours(st);
-	// p_arr_add_scale_n_shift(st);
-	prepare_points(st);
+	copy_points(st->map);
 	draw(st);
 }
 

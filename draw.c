@@ -74,7 +74,6 @@ void	draw_line(t_point p1, t_point p2, t_fdf *st)
 		if_dx(p1, p2, st, deltax, deltay);
 	else
 		if_dy(p1, p2, st, deltax, deltay);
-	// printf("x = %f, y = %f\n", p1.x, p1.y);
 }
 
 void	draw(t_fdf *st)
@@ -82,18 +81,17 @@ void	draw(t_fdf *st)
 	int	i;
 	t_point *p;
 
-	p = st->map->iso;
-	prepare_iso(st);
+	p = st->map->work_p;
+	prepare_points(st);
 
 	clear_image(st->image);
-	i = 0;
-	while (i < st->map->width * st->map->height)
+	i = -1;
+	while (++i < st->map->square)
 	{
 		if (p[i].right)
 			draw_line(p[i], *(p[i].right), st);
 		if (p[i].down)
 			draw_line(p[i], *(p[i].down), st);
-		i++;
 	}
 	mlx_put_image_to_window(st->mlx_ptr, st->win_ptr, st->image->image_cont, 0, 0);
 }

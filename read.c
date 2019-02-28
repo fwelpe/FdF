@@ -24,25 +24,22 @@ int		count_words(char **splitted_words)
 	return (i);
 }
 
-int		count_y(t_fdf *st)
+int		count_lines(char *name)
 {
 	int		fd;
 	int		y;
 	char	*l;
 
-	y = 0;
-	if ((fd = open(st->n, O_RDONLY)) == -1)
+	if (((fd = open(name, O_RDONLY)) == -1))
 		return (0);
+	y = 0;
 	while (get_next_line(fd, &l) > 0)
 		y++;
-	if (y == 0)
-		return (0);
-	st->map->height = y;
 	close(fd);
-	return (1);
+	return (y);
 }
 
-int	ft_cp2darr(char **dst, char **src, int size)
+int		ft_cp2darr(char **dst, char **src, int size)
 {
 	int	i;
 
@@ -55,37 +52,42 @@ int	ft_cp2darr(char **dst, char **src, int size)
 	return (1);
 }
 
-int		map_old_solve(t_fdf *st, char *l, int i)
+int		str_map_solve(t_map *map, char *line, int i)
 {
-	char	**w;
+	char	**words;
 
-	w = ft_strsplit(l, ' ');
+	words = ft_strsplit(line, ' ');
 	if (i == 0)
-		st->map->width = count_words(w);
-	else if (st->map->width != count_words(w) || st->map->width == 0)
+		map->width = count_words(words);
+	else if (map->width != count_words(words) || map->width == 0)
 		return (0);
-	MALLCHECK((st->map_old[i] = (char **)malloc(sizeof(char *) * st->map->width)));
-	ft_cp2darr(st->map_old[i], w, st->map->width);
-	free_all(w, l);
+	MALLCHECK((map->str_map[i] =
+		(char **)malloc(sizeof(char *) * map->width)));
+	ft_cp2darr(map->str_map[i], words, map->width);
+	free_all(words, line);
 	return (1);
 }
 
-int		fillall_validate(t_fdf *st)
+int		fillall_validate(t_map *map, char* name)
 {
 	int		fd;
-	char	*l;
+	char	*line;
 	int		i;
 
-	MALLCHECK((st->map = (t_map *)malloc(sizeof(t_map))));
-	if (((fd = open(st->n, O_RDONLY)) == -1) || !(count_y(st)))
+	if (((fd = open(name, O_RDONLY)) == -1) ||
+		!(map->height = count_lines(name)))
 		return (0);
 	i = 0;
-	st->map->width = 0;
-	MALLCHECK((st->map_old = (char ***)malloc(sizeof(char **) * st->map->height)));
-	while (get_next_line(fd, &l) > 0 && i < st->map->height)
+	map->width = 0;
+	MALLCHECK((map->str_map =
+		(char ***)malloc(sizeof(char **) * map->height)));
+	while (get_next_line(fd, &line) > 0 && i < map->height)
 	{
-		map_old_solve(st, l, i);
+		if(!str_map_solve(map, line, i))
+			return (0);
 		i++;
 	}
+	close(fd);
+	map->square = map->width * map->height;
 	return (1);
 }

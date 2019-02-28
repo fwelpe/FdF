@@ -47,18 +47,21 @@ void	set_colours(t_fdf *st)
 	int		i;
 
 	i = -1;
-	p = st->map->points;
+	p = st->map->base_p;
 	if (st->map->has_colour)
-		while (++i < st->map->width * st->map->height)
+		while (++i < st->map->square)
 		{
 			p->colour = p->colour == -1 ? COLOUR : p->colour;
 			p++;
 		}
 	else
 	{
-		while (++i < st->map->width * st->map->height)
+		while (++i < st->map->square)
 		{
-			p->colour = get_p_colour(st->map->max_z, st->map->min_z, p->z, TO, FROM);
+			if (st->map->max_z == st->map->min_z)
+				p->colour = FLAT;
+			else
+				p->colour = get_p_colour(st->map->max_z, st->map->min_z, p->z, TO, FROM);
 			p++;
 		}
 	}

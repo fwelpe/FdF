@@ -1,122 +1,75 @@
 #include "fdf.h"
 
-int	r_d_for_iso(t_map *map)
+int		validate_z(char *str)
 {
-	int 	i;
-	int 	j;
-	t_point *curr;
-	int		curr_pos;
+	int i;
 
-	i = 0;
-	MALLCHECK((map->iso = (t_point *)malloc(sizeof(t_point) * map->width * map->height)));
-	while (i < map->height)
+	i = -1;
+	while (str[++i] && str[i] != ',')
 	{
-		j = 0;
-		while (j < map->width)
+		if (!((str[i] >= '0' && str[i] <= '9') || str[i] == '-'))
 		{
-			curr_pos = map->width * i + j;
-			curr = &(map->iso[curr_pos]);
-			curr->right = j != map->width - 1 ? &(map->iso[curr_pos + 1]) : NULL;
-			curr->down = i != map->height - 1 ? &(map->iso[curr_pos + map->width]) : NULL;
-			j++;
+			ft_putendl_fd("Error!", 2);
+			exit (1);
 		}
-		i++;
 	}
-	return (1);
+	return (ft_atoi(ft_strsplit(str, ',')[0]));
 }
 
-void	p_arr_solve(t_fdf *st, int i, int j)
+void	fill_base_p(t_map *map, int i, int j)
 {
 	t_point *curr;
 	int		curr_pos;
-	t_map	*map;
 
-	map = st->map;
 	curr_pos = map->width * i + j;
-	curr = &(map->points[curr_pos]);
+	curr = &(map->base_p[curr_pos]);
 	curr->x = j;
 	curr->y = i;
-	curr->z = ft_atoi(ft_strsplit(st->map_old[i][j], ',')[0]);
+	curr->z = validate_z(map->str_map[i][j]);
 	map->max_z = curr->z > map->max_z ? curr->z : map->max_z;
 	map->min_z = curr->z < map->min_z ? curr->z : map->min_z;
-	curr->colour = get_colour(st->map_old[i][j]);
+	curr->colour = get_colour(map->str_map[i][j]);
 	map->has_colour = curr->colour != -1 ? 1 : map->has_colour;
-	curr->right = j != map->width - 1 ? &(map->points[curr_pos + 1]) : NULL;
-	curr->down = i != map->height - 1 ? &(map->points[curr_pos + map->width]) : NULL;
+	curr->right = j != map->width - 1 ? &(map->base_p[curr_pos + 1]) : NULL;
+	curr->down =
+		i != map->height - 1 ? &(map->base_p[curr_pos + map->width]) : NULL;
 }
 
-int		p_arr_init(t_fdf *st)
+int		p_arr_init(t_map *map)
 {
 	int 	i;
 	int 	j;
-	t_map	*map;
 
-	map = st->map;
 	map->has_colour = 0;
-	map->max_z = ft_atoi(ft_strsplit(st->map_old[0][0], ',')[0]);
+	map->max_z = validate_z(map->str_map[0][0]);
 	map->min_z = map->max_z;
-	MALLCHECK((map->points = (t_point *)malloc(sizeof(t_point) * map->width * map->height)));
+	MALLCHECK((map->base_p = (t_point *)malloc(sizeof(t_point) * map->square)));
 	i = 0;
 	while (i < map->height)
 	{
 		j = 0;
 		while (j < map->width)
 		{
-			p_arr_solve(st, i, j);
+			fill_base_p(map, i, j);
 			j++;
 		}
 		i++;
 	}
-	r_d_for_iso(map);
+	r_d_for_work(map);
 	return (1);
 }
 
-int		st_init(t_fdf *st, char *n)
+int		st_init(t_fdf *st, char *name)
 {
 	st->mlx_ptr = mlx_init();
-	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, "FdF 42");
-	st->n = n;
+	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, get_name(name));
 	if(!(st->image = new_image(st)))
 		return (0);
-	if (!fillall_validate(st) || !p_arr_init(st))
+	MALLCHECK((st->map = (t_map *)malloc(sizeof(t_map))));
+	if (!fillall_validate(st->map, name) || !p_arr_init(st->map))
 		return (0);
-	// calc_scale_n_shift(st);
-	st->shx = 0;
-	st->shy = 0;
 	set_colours(st);
 	MALLCHECK((st->cam = (t_cam *)malloc(sizeof(t_cam))));
 	zero_cam(st);
-	// p_arr_add_scale_n_shift(st);
 	return (1);
-}
-
-void	prepare_points(t_fdf *st)
-{
-	int i;
-	t_map *map;
-
-	map = st->map;
-	// p_arr_del_shift(st);
-	i = -1;
-	// while (++i < map->height * map->width)
-	// {
-		// map->points->x -= (double)(map->width - 1) / 2.0f;
-		// map->points->y -= (double)(map->height - 1) / 2.0f;
-		// map->points->z -= (double)(map->min_z + map->max_z) / 2.0f;
-		// rotate(&map->points[i], st->cam, st);
-	// }
-	// p_arr_add_scale_n_shift(st);
-	
-	i = -1;
-	while (++i < map->height * map->width)
-	{
-		// map->points->x -= (double)(map->width - 1) / 2.0f;
-		// map->points->y -= (double)(map->height - 1) / 2.0f;
-		// map->points->z -= (double)(map->min_z + map->max_z) / 2.0f;
-		// rotate(&map->points[i], st->cam, st);
-		map->iso[i].colour = map->points[i].colour;
-		map->iso[i].x = map->points[i].x;
-		map->iso[i].y = map->points[i].y;
-		map->iso[i].z = map->points[i].z;
-	}
 }
