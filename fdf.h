@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:48:54 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/18 18:16:10 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/08 18:20:48 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <fcntl.h>
 # include <math.h>
-# include "libft/libft.h"
+# include "libft.h"
 # include "mlx.h"
 # include <stdio.h>
 
