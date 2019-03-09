@@ -54,6 +54,12 @@ typedef struct	s_point
 	struct s_point	*down;
 }				t_point;
 
+typedef struct s_colours
+{
+	int frstCol;
+	int scndCol;
+}				t_colours;
+
 typedef struct		s_image
 {
 	void		*image_cont;
@@ -120,7 +126,7 @@ int			st_init(t_fdf *st, char *n);
 void		copy_points(t_map *map);
 int			deal_key(int key, t_fdf *st);
 int			get_colour(char *str);
-int			gradient(int colour1, int colour2, float dx, float dy, int n);
+int			gradient(t_colours colours, float dx, float dy, int n);
 void		set_colours(t_fdf *st);
 void		prepare_points(t_fdf *st);
 void		image_set_pixel(t_image *image, int x, int y, int color);

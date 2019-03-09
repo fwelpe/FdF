@@ -30,15 +30,18 @@ void	if_dx(t_point p1, t_point p2, t_fdf *st, float dx, float dy)
 	float	x;
 	float	y;
 	float	shift;
+	t_colours c;
 
 	sort_by_coord(&p1, &p2, 'x');
 	x = p1.x;
 	y = p1.y;
 	shift = dy / dx * (p1.y < p2.y ? 1 : -1);
+	c.frstCol = p2.colour;
+	c.scndCol = p1.colour;
 	while (x <= p2.x)
 	{
 		if (x >=0 && x <= W && y >= 0 && y <= H)
-			image_set_pixel(st->image, x, y, gradient(p2.colour, p1.colour, dx, dy, x - p1.x));
+			image_set_pixel(st->image, x, y, gradient(c, dx, dy, x - p1.x));
 		y += shift;
 		x++;
 	}
@@ -49,15 +52,18 @@ void	if_dy(t_point p1, t_point p2, t_fdf *st, float dx, float dy)
 	float	x;
 	float	y;
 	float	shift;
+	t_colours c;
 
 	sort_by_coord(&p1, &p2, 'y');
 	x = p1.x;
 	y = p1.y;
 	shift = dx / dy * (p1.x < p2.x ? 1 : -1);
+	c.frstCol = p2.colour;
+	c.scndCol = p1.colour;
 	while (y <= p2.y)
 	{
 		if (x >=0 && x <= W && y >= 0 && y <= H)
-			image_set_pixel(st->image, x, y, gradient(p2.colour, p1.colour, dx, dy, y - p1.y));
+			image_set_pixel(st->image, x, y, gradient(c, dx, dy, y - p1.y));
 		x += shift;
 		y++;
 	}
