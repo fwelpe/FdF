@@ -6,7 +6,7 @@
 #    By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/03/07 19:38:15 by fwlpe            ###   ########.fr        #
+#    Updated: 2019/03/09 18:59:32 by fwlpe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ clean:
 	make -C libft/ clean
 	make -C minilibx_macos/ clean
 
-fclean: clean
+fclean:
 	make -C libft/ fclean
-	make -C minilibx_macos/ fclean
+	make -C minilibx_macos/ clean
 	rm -f $(NAME)
 
 re: fclean all
