@@ -66,10 +66,11 @@ int		str_map_solve(t_map *map, char *line, int i)
 		map->width = count_words(words);
 	else if (map->width != count_words(words) || map->width == 0)
 		return (0);
-	MALLCHECK((map->str_map[i] =
+	/* MALLCHECK((map->str_map[i] =
 		(char **)malloc(sizeof(char *) * map->width)));
-	ft_cp2darr(map->str_map[i], words, map->width);
-	free_all(words, line);
+	ft_cp2darr(map->str_map[i], words, map->width); */
+	map->str_map[i] = words;
+	free_all(NULL, line);
 	return (1);
 }
 
