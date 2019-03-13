@@ -14,13 +14,12 @@
 
 int		mouse_hook_f(int button,int x,int y, t_fdf *st)
 {
-	// printf("hey!\n");
 	st->mouse->lastx = st->mouse->x;
 	st->mouse->lasty = st->mouse->y;
 	st->mouse->x = x;
 	st->mouse->y = y;
-	st->cam->x += (st->mouse->lasty - y) / 50.0f;
-	st->cam->y -= (st->mouse->lastx - x) / 50.0f;
+	st->cam->x += (st->mouse->lasty - y) / 350.0f;
+	st->cam->y -= (st->mouse->lastx - x) / 350.0f;
 	copy_points(st->map);
 	draw(st);
 	return (0);

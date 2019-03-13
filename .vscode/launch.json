@@ -9,11 +9,11 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/a.out",
-			"args": ["/Users/cdenys-a/Downloads/test_maps/42.fdf"],
+			"args": ["/home/fwlpe/FdF/maps/t2.fdf"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
-			"externalConsole": true,
+			"externalConsole": false,
 			"MIMode": "lldb"
 		}
 	]

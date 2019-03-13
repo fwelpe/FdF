@@ -19,5 +19,5 @@ char	*get_name(char *path)
 	int	i;
 
 	i = last_index_of(path, '/');
-	return (ft_strsub(path, i + 1, ft_strlen(path) - i - 1));
+	return (&(path[i + 1]));
 }

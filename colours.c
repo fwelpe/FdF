@@ -25,12 +25,12 @@ double		get_p_colour(double max, double min, int z, int col1, int col2)
 
 int		get_colour(char *str)
 {
-	char **w;
-
-	w = ft_strsplit(str, ',');
-	if (count_words(w) == 1)
+	char	*p;
+	
+	p = ft_strchr(str, ',');
+	if (!p)
 		return (-1);
-	return(ft_atoi_base(ft_strsub(w[1], 2, 6), 16));
+	return(ft_atoi_base(&(p[3]), 16));
 }
 
 int		gradient(int colour1, int colour2, float dx, float dy, int n)

@@ -43,11 +43,12 @@ int		ft_cp2darr(char **dst, char **src, int size)
 {
 	int	i;
 
-	i = -1;
-	while (++i < size)
+	i = 0;
+	while (i < size)
 	{
 		MALLCHECK((dst[i] = (char *)malloc(ft_strlen(src[i]))));
 		ft_strcpy(dst[i], src[i]);
+		i++;
 	}
 	return (1);
 }
