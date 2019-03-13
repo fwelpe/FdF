@@ -34,7 +34,11 @@ int		count_lines(char *name)
 		return (0);
 	y = 0;
 	while (get_next_line(fd, &l) > 0)
+	{
 		y++;
+		free(l);
+	}
+	free(l);
 	close(fd);
 	return (y);
 }
@@ -88,6 +92,7 @@ int		fillall_validate(t_map *map, char* name)
 			return (0);
 		i++;
 	}
+	free(line);
 	close(fd);
 	map->square = map->width * map->height;
 	return (1);

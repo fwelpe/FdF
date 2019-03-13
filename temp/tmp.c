@@ -3,5 +3,5 @@
 
 int main()
 {
-	printf("%f\n", sin(0.523599));
+	printf("%i\n", atoi("6561,65445"));
 }

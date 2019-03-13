@@ -13,7 +13,7 @@ int		validate_z(char *str)
 			exit (1);
 		}
 	}
-	return (ft_atoi(ft_strsplit(str, ',')[0]));
+	return (ft_atoi(str));
 }
 
 void	fill_base_p(t_map *map, int i, int j)

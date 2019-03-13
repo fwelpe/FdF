@@ -1,312 +1,173 @@
-==5100== Memcheck, a memory error detector
-==5100== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==5100== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==5100== Command: ./a.out maps/42.fdf
-==5100== 
-==5100== Syscall param writev(vector[...]) points to uninitialised byte(s)
-==5100==    at 0x578BFE0: __writev_nocancel (syscall-template.S:84)
-==5100==    by 0x5A62F28: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==5100==    by 0x5A6331C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==5100==    by 0x5A633A4: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==5100==    by 0x508954D: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
-==5100==    by 0x50896AF: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
-==5100==    by 0x5087BD0: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
-==5100==    by 0x405701: mlx_int_wait_first_expose (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4054D3: mlx_new_window (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x403B0C: st_init (prepares.c:65)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x6291e9c is 28 bytes inside a block of size 16,384 alloc'd
-==5100==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x5079722: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
-==5100==    by 0x4050E2: mlx_init (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x403AD7: st_init (prepares.c:64)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid write of size 1
-==5100==    at 0x404A96: ft_strcpy (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x403D5D: ft_cp2darr (read.c:50)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x4037B4: validate_z (prepares.c:8)
-==5100==    by 0x403A19: p_arr_init (prepares.c:44)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404F29: ft_countwords (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x404D1D: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403A19: p_arr_init (prepares.c:44)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404F29: ft_countwords (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x404E56: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403A19: p_arr_init (prepares.c:44)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404C50: mlc_count (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x404D81: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403A19: p_arr_init (prepares.c:44)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404E02: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403A19: p_arr_init (prepares.c:44)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404E0E: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403A19: p_arr_init (prepares.c:44)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x4037B4: validate_z (prepares.c:8)
-==5100==    by 0x403882: fill_base_p (prepares.c:28)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404F29: ft_countwords (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x404D1D: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403882: fill_base_p (prepares.c:28)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404F29: ft_countwords (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x404E56: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403882: fill_base_p (prepares.c:28)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404C50: mlc_count (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x404D81: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403882: fill_base_p (prepares.c:28)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404E02: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403882: fill_base_p (prepares.c:28)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404E0E: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403882: fill_base_p (prepares.c:28)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404A3E: ft_strchr (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x401AC2: get_colour (colours.c:30)
-==5100==    by 0x40394E: fill_base_p (prepares.c:31)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== Invalid read of size 1
-==5100==    at 0x404A27: ft_strchr (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x401AC2: get_colour (colours.c:30)
-==5100==    by 0x40394E: fill_base_p (prepares.c:31)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x403D12: ft_cp2darr (read.c:49)
-==5100==    by 0x403E54: str_map_solve (read.c:67)
-==5100==    by 0x403F35: fillall_validate (read.c:87)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== 
-==5100== HEAP SUMMARY:
-==5100==     in use at exit: 91,759 bytes in 761 blocks
-==5100==   total heap usage: 1,525 allocs, 764 frees, 126,381 bytes allocated
-==5100== 
-==5100== 1 bytes in 1 blocks are definitely lost in loss record 1 of 69
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x404BF6: ft_strnew (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4045C2: add_str (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4046A1: gnl_aux (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4047D3: get_next_line (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x403F55: fillall_validate (read.c:85)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== 18 (16 direct, 2 indirect) bytes in 1 blocks are definitely lost in loss record 8 of 69
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x404D2D: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403A19: p_arr_init (prepares.c:44)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== 112 bytes in 2 blocks are definitely lost in loss record 34 of 69
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x404BF6: ft_strnew (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4045C2: add_str (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x404838: get_next_line (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x403C8F: count_lines (read.c:36)
-==5100==    by 0x403EBD: fillall_validate (read.c:79)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== 505 bytes in 10 blocks are definitely lost in loss record 53 of 69
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x404BF6: ft_strnew (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4045C2: add_str (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4046A1: gnl_aux (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4047D3: get_next_line (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x403C8F: count_lines (read.c:36)
-==5100==    by 0x403EBD: fillall_validate (read.c:79)
-==5100==    by 0x403B85: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== 3,812 (3,344 direct, 468 indirect) bytes in 209 blocks are definitely lost in loss record 62 of 69
-==5100==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5100==    by 0x404D2D: ft_strsplit (in /home/fwlpe/FdF/a.out)
-==5100==    by 0x4037E3: validate_z (prepares.c:16)
-==5100==    by 0x403882: fill_base_p (prepares.c:28)
-==5100==    by 0x403A8A: p_arr_init (prepares.c:53)
-==5100==    by 0x403B99: st_init (prepares.c:69)
-==5100==    by 0x402B67: main (main.c:32)
-==5100== 
-==5100== LEAK SUMMARY:
-==5100==    definitely lost: 3,978 bytes in 223 blocks
-==5100==    indirectly lost: 470 bytes in 210 blocks
-==5100==      possibly lost: 0 bytes in 0 blocks
-==5100==    still reachable: 87,311 bytes in 328 blocks
-==5100==         suppressed: 0 bytes in 0 blocks
-==5100== Reachable blocks (those to which a pointer was found) are not shown.
-==5100== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==5100== 
-==5100== For counts of detected and suppressed errors, rerun with: -v
-==5100== Use --track-origins=yes to see where uninitialised values come from
-==5100== ERROR SUMMARY: 2116 errors from 21 contexts (suppressed: 0 from 0)
+==5807== Memcheck, a memory error detector
+==5807== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==5807== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==5807== Command: ./a.out maps/42.fdf
+==5807== 
+==5807== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==5807==    at 0x578BFE0: __writev_nocancel (syscall-template.S:84)
+==5807==    by 0x5A62F28: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==5807==    by 0x5A6331C: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==5807==    by 0x5A633A4: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==5807==    by 0x508954D: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==5807==    by 0x50896AF: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==5807==    by 0x5087BD0: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==5807==    by 0x4056F1: mlx_int_wait_first_expose (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4054C3: mlx_new_window (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x403AFC: st_init (prepares.c:65)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x6291e9c is 28 bytes inside a block of size 16,384 alloc'd
+==5807==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x5079722: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==5807==    by 0x4050D2: mlx_init (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x403AC7: st_init (prepares.c:64)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== Invalid write of size 1
+==5807==    at 0x404A86: ft_strcpy (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x403D4D: ft_cp2darr (read.c:50)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x403D02: ft_cp2darr (read.c:49)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== Invalid read of size 1
+==5807==    at 0x4037B4: validate_z (prepares.c:8)
+==5807==    by 0x403A09: p_arr_init (prepares.c:44)
+==5807==    by 0x403B89: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x403D02: ft_cp2darr (read.c:49)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== Invalid read of size 1
+==5807==    at 0x40443A: ft_atoi (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4037DE: validate_z (prepares.c:16)
+==5807==    by 0x403A09: p_arr_init (prepares.c:44)
+==5807==    by 0x403B89: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x403D02: ft_cp2darr (read.c:49)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== Invalid read of size 1
+==5807==    at 0x4037B4: validate_z (prepares.c:8)
+==5807==    by 0x403872: fill_base_p (prepares.c:28)
+==5807==    by 0x403A7A: p_arr_init (prepares.c:53)
+==5807==    by 0x403B89: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x403D02: ft_cp2darr (read.c:49)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== Invalid read of size 1
+==5807==    at 0x40443A: ft_atoi (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4037DE: validate_z (prepares.c:16)
+==5807==    by 0x403872: fill_base_p (prepares.c:28)
+==5807==    by 0x403A7A: p_arr_init (prepares.c:53)
+==5807==    by 0x403B89: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x403D02: ft_cp2darr (read.c:49)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== Invalid read of size 1
+==5807==    at 0x404A2E: ft_strchr (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x401AC2: get_colour (colours.c:30)
+==5807==    by 0x40393E: fill_base_p (prepares.c:31)
+==5807==    by 0x403A7A: p_arr_init (prepares.c:53)
+==5807==    by 0x403B89: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x403D02: ft_cp2darr (read.c:49)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== Invalid read of size 1
+==5807==    at 0x404A17: ft_strchr (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x401AC2: get_colour (colours.c:30)
+==5807==    by 0x40393E: fill_base_p (prepares.c:31)
+==5807==    by 0x403A7A: p_arr_init (prepares.c:53)
+==5807==    by 0x403B89: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807==  Address 0x629e711 is 0 bytes after a block of size 1 alloc'd
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x403D02: ft_cp2darr (read.c:49)
+==5807==    by 0x403E44: str_map_solve (read.c:67)
+==5807==    by 0x403F25: fillall_validate (read.c:87)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== 
+==5807== HEAP SUMMARY:
+==5807==     in use at exit: 87,929 bytes in 341 blocks
+==5807==   total heap usage: 825 allocs, 484 frees, 115,271 bytes allocated
+==5807== 
+==5807== 1 bytes in 1 blocks are definitely lost in loss record 1 of 64
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x404BE6: ft_strnew (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4045B2: add_str (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x404691: gnl_aux (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4047C3: get_next_line (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x403F45: fillall_validate (read.c:85)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== 112 bytes in 2 blocks are definitely lost in loss record 32 of 64
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x404BE6: ft_strnew (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4045B2: add_str (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x404828: get_next_line (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x403C7F: count_lines (read.c:36)
+==5807==    by 0x403EAD: fillall_validate (read.c:79)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== 505 bytes in 10 blocks are definitely lost in loss record 50 of 64
+==5807==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5807==    by 0x404BE6: ft_strnew (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4045B2: add_str (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x404691: gnl_aux (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x4047C3: get_next_line (in /home/fwlpe/FdF/a.out)
+==5807==    by 0x403C7F: count_lines (read.c:36)
+==5807==    by 0x403EAD: fillall_validate (read.c:79)
+==5807==    by 0x403B75: st_init (prepares.c:69)
+==5807==    by 0x402B67: main (main.c:32)
+==5807== 
+==5807== LEAK SUMMARY:
+==5807==    definitely lost: 618 bytes in 13 blocks
+==5807==    indirectly lost: 0 bytes in 0 blocks
+==5807==      possibly lost: 0 bytes in 0 blocks
+==5807==    still reachable: 87,311 bytes in 328 blocks
+==5807==         suppressed: 0 bytes in 0 blocks
+==5807== Reachable blocks (those to which a pointer was found) are not shown.
+==5807== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==5807== 
+==5807== For counts of detected and suppressed errors, rerun with: -v
+==5807== Use --track-origins=yes to see where uninitialised values come from
+==5807== ERROR SUMMARY: 1057 errors from 11 contexts (suppressed: 0 from 0)
