@@ -6,7 +6,7 @@
 /*   By: fwlpe <fwlpe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:48:54 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/08 18:20:48 by fwlpe            ###   ########.fr       */
+/*   Updated: 2019/03/09 20:27:46 by fwlpe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@
 # define YELLOW 0xFFFF00
 # define SPRING 0x99FF00
 
-# define ESC 53
-# define LEFT 123
-# define RIGHT 124
-# define DOWN 125
-# define SPACE 49
-# define PLUS 24
-# define MINUS 27
-# define UP 126
+# define ESC 65307
+# define LEFT 65363
+# define RIGHT 65361
+# define DOWN 65362
+# define SPACE 32
+# define PLUS 61
+# define MINUS 45
+# define UP 65364
 
 # define MALLCHECK(x) if (!x) return (0)
 
