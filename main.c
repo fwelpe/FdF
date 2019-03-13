@@ -12,6 +12,20 @@
 
 #include "fdf.h"
 
+int		mouse_hook_f(int button,int x,int y, t_fdf *st)
+{
+	// printf("hey!\n");
+	st->mouse->lastx = st->mouse->x;
+	st->mouse->lasty = st->mouse->y;
+	st->mouse->x = x;
+	st->mouse->y = y;
+	st->cam->x += (st->mouse->lasty - y) / 50.0f;
+	st->cam->y -= (st->mouse->lastx - x) / 50.0f;
+	copy_points(st->map);
+	draw(st);
+	return (0);
+}
+
 int 	main(int ac, char **av)
 {
 	t_fdf	st;
@@ -28,5 +42,6 @@ int 	main(int ac, char **av)
 	mlx_hook(st.win_ptr, 4, 0, mouse_press, (void *)&st);
 	mlx_hook(st.win_ptr, 5, 0, mouse_release, (void *)&st);
 	mlx_hook(st.win_ptr, 6, 0, mouse_move, (void *)&st);
+	mlx_mouse_hook(st.win_ptr, mouse_hook_f, (void *)&st);
 	mlx_loop(st.mlx_ptr);
 }
