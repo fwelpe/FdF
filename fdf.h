@@ -16,8 +16,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include "libft/libft.h"
-# include "mlx.h"
-# include <stdio.h>
+# include "minilibx_macos/mlx.h"
+# include <stdio.h> // стереть!
 
 # define W 1200
 # define H 700
