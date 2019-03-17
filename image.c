@@ -26,14 +26,12 @@ t_image	*del_image(t_fdf *st, t_image *img)
 t_image	*new_image(t_fdf *st)
 {
 	t_image		*img;
-	int	nil = 0;
 
 	if ((img = ft_memalloc(sizeof(t_image))) == NULL)
 		return (NULL);
 	if (!(img->image_cont = mlx_new_image(st->mlx_ptr, W, H)))
 		return (del_image(st, img));
-	img->adr = mlx_get_data_addr(img->image_cont, &img->b_p_pix, &nil,
-			&nil);
+	img->adr = mlx_get_data_addr(img->image_cont, &img->b_p_pix, NULL, NULL);
 	img->b_p_pix /= 8;
 	return (img);
 }
