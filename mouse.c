@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:05:19 by cdenys-a          #+#    #+#             */
+/*   Updated: 2019/03/18 14:05:48 by cdenys-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-int		init_mouse(t_fdf *st)
+int	init_mouse(t_fdf *st)
 {
 	MALLCHECK((st->mouse = (t_mouse *)malloc(sizeof(t_mouse))));
 	st->mouse->button = -1;
@@ -11,7 +23,7 @@ int		init_mouse(t_fdf *st)
 	return (1);
 }
 
-int mouse_press(int button, int x, int y, t_fdf *st)
+int	mouse_press(int button, int x, int y, t_fdf *st)
 {
 	(void)x;
 	(void)y;
@@ -19,7 +31,7 @@ int mouse_press(int button, int x, int y, t_fdf *st)
 	return (0);
 }
 
-int mouse_release(int button, int x, int y, t_fdf *st)
+int	mouse_release(int button, int x, int y, t_fdf *st)
 {
 	(void)x;
 	(void)y;
@@ -28,7 +40,7 @@ int mouse_release(int button, int x, int y, t_fdf *st)
 	return (0);
 }
 
-int mouse_move(int x, int y, t_fdf *st)
+int	mouse_move(int x, int y, t_fdf *st)
 {
 	st->mouse->lastx = st->mouse->x;
 	st->mouse->lasty = st->mouse->y;
@@ -41,6 +53,5 @@ int mouse_move(int x, int y, t_fdf *st)
 		copy_points(st->map);
 		draw(st);
 	}
-	
 	return (0);
 }

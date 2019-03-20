@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   points_for_work.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:06:38 by cdenys-a          #+#    #+#             */
+/*   Updated: 2019/03/18 14:07:39 by cdenys-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-int	r_d_for_work(t_map *map)
+int		r_d_for_work(t_map *map)
 {
-	int 	i;
-	int 	j;
-	t_point *curr;
+	int		i;
+	int		j;
+	t_point	*curr;
 	int		curr_pos;
 
 	i = 0;

@@ -1,22 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prepare_points.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:08:31 by cdenys-a          #+#    #+#             */
+/*   Updated: 2019/03/18 14:14:23 by cdenys-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-void iso(float *x, float *y, float z)
+void	iso(float *x, float *y, float z)
 {
-    float previous_x;
-    float previous_y;
-    previous_x = *x - (W / 2);
-    previous_y = *y - (H / 2);
-    *x = (previous_x - previous_y) * cos(0.523599) + W / 2;
-    *y = -z + (previous_x + previous_y) * sin(0.523599) + H / 2;
+	float	previous_x;
+	float	previous_y;
+
+	previous_x = *x - (W / 2);
+	previous_y = *y - (H / 2);
+	*x = (previous_x - previous_y) * cos(0.523599) + W / 2;
+	*y = -z + (previous_x + previous_y) * sin(0.523599) + H / 2;
 }
 
 void	find_center(t_map *map, t_cam *cam)
 {
-	float maxx;
-	float minx;
-	float maxy;
-	float miny;
-	int i;
+	float	maxx;
+	float	minx;
+	float	maxy;
+	float	miny;
+	int		i;
 
 	maxx = map->work_p[0].x;
 	minx = maxx;
@@ -34,7 +47,7 @@ void	find_center(t_map *map, t_cam *cam)
 	cam->center_y = H / 2 - (maxy - miny) / 2 - miny;
 }
 
-void move_points(t_map *map, t_cam *cam)
+void	move_points(t_map *map, t_cam *cam)
 {
 	int		i;
 	t_point *p;
@@ -42,7 +55,7 @@ void move_points(t_map *map, t_cam *cam)
 	if (cam->zoom == 1)
 		find_center(map, cam);
 	p = map->work_p;
-		i = -1;
+	i = -1;
 	while (++i < map->square)
 	{
 		p[i].x += cam->move_x + cam->center_x;
@@ -50,7 +63,7 @@ void move_points(t_map *map, t_cam *cam)
 	}
 }
 
-void transform_point_coords(t_point *p, t_map *map)
+void	transform_point_coords(t_point *p, t_map *map)
 {
 	p->x -= (double)(map->width - 1) / 2.0f;
 	p->y -= (double)(map->height - 1) / 2.0f;

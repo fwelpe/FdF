@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:28:43 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/02/18 18:25:17 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:30:10 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	sort_by_coord(t_point *p1, t_point *p2, char c)
 {
 	t_point t;
-	
+
 	if ((c == 'x' && p1->x > p2->x) || (c == 'y' && p1->y > p2->y))
 	{
 		t = *p1;
@@ -25,45 +25,47 @@ void	sort_by_coord(t_point *p1, t_point *p2, char c)
 	}
 }
 
-void	if_dx(t_point p1, t_point p2, t_fdf *st, float dx, float dy)
+void	if_dx(t_point p1, t_point p2, t_fdf *st, t_deltas dt)
 {
-	float	x;
-	float	y;
-	float	shift;
-	t_colours c;
+	float		x;
+	float		y;
+	float		shift;
+	t_colours	c;
 
 	sort_by_coord(&p1, &p2, 'x');
 	x = p1.x;
 	y = p1.y;
-	shift = dy / dx * (p1.y < p2.y ? 1 : -1);
+	shift = dt.dy / dt.dx * (p1.y < p2.y ? 1 : -1);
 	c.frstCol = p2.colour;
 	c.scndCol = p1.colour;
 	while (x <= p2.x)
 	{
-		if (x >=0 && x <= W && y >= 0 && y <= H)
-			image_set_pixel(st->image, x, y, gradient(c, dx, dy, x - p1.x));
+		if (x >= 0 && x <= W && y >= 0 && y <= H)
+			image_set_pixel(st->image, x, y,
+							gradient(c, dt.dx, dt.dy, x - p1.x));
 		y += shift;
 		x++;
 	}
 }
 
-void	if_dy(t_point p1, t_point p2, t_fdf *st, float dx, float dy)
+void	if_dy(t_point p1, t_point p2, t_fdf *st, t_deltas dt)
 {
-	float	x;
-	float	y;
-	float	shift;
-	t_colours c;
+	float		x;
+	float		y;
+	float		shift;
+	t_colours	c;
 
 	sort_by_coord(&p1, &p2, 'y');
 	x = p1.x;
 	y = p1.y;
-	shift = dx / dy * (p1.x < p2.x ? 1 : -1);
+	shift = dt.dx / dt.dy * (p1.x < p2.x ? 1 : -1);
 	c.frstCol = p2.colour;
 	c.scndCol = p1.colour;
 	while (y <= p2.y)
 	{
-		if (x >=0 && x <= W && y >= 0 && y <= H)
-			image_set_pixel(st->image, x, y, gradient(c, dx, dy, y - p1.y));
+		if (x >= 0 && x <= W && y >= 0 && y <= H)
+			image_set_pixel(st->image, x, y,
+							gradient(c, dt.dx, dt.dy, y - p1.y));
 		x += shift;
 		y++;
 	}
@@ -71,25 +73,23 @@ void	if_dy(t_point p1, t_point p2, t_fdf *st, float dx, float dy)
 
 void	draw_line(t_point p1, t_point p2, t_fdf *st)
 {
-	float	deltax;
-	float	deltay;
+	t_deltas	dt;
 
-	deltax = fabsf(p1.x - p2.x);
-    deltay = fabsf(p1.y - p2.y);
-	if (deltax > deltay)
-		if_dx(p1, p2, st, deltax, deltay);
+	dt.dx = fabsf(p1.x - p2.x);
+	dt.dy = fabsf(p1.y - p2.y);
+	if (dt.dx > dt.dy)
+		if_dx(p1, p2, st, dt);
 	else
-		if_dy(p1, p2, st, deltax, deltay);
+		if_dy(p1, p2, st, dt);
 }
 
 void	draw(t_fdf *st)
 {
-	int	i;
-	t_point *p;
+	int		i;
+	t_point	*p;
 
 	p = st->map->work_p;
 	prepare_points(st);
-
 	clear_image(st->image);
 	i = -1;
 	while (++i < st->map->square)
@@ -99,5 +99,6 @@ void	draw(t_fdf *st)
 		if (p[i].down)
 			draw_line(p[i], *(p[i].down), st);
 	}
-	mlx_put_image_to_window(st->mlx_ptr, st->win_ptr, st->image->image_cont, 0, 0);
+	mlx_put_image_to_window(st->mlx_ptr, st->win_ptr, st->image->image_cont,
+	0, 0);
 }

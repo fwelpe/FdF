@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colours.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 13:31:28 by cdenys-a          #+#    #+#             */
+/*   Updated: 2019/03/18 14:42:33 by cdenys-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-double get_p_colour(double max, double min, int z, t_colours colours)
+double	get_p_col(double max, double min, int z, t_colours colours)
 {
 	int res[3];
 	int c1;
@@ -23,32 +35,32 @@ double get_p_colour(double max, double min, int z, t_colours colours)
 	return ((res[0] << 16) | (res[1] << 8) | res[2]);
 }
 
-int get_colour(char *str)
+int		get_colour(char *str)
 {
-	char **w;
+	char	*p;
 
-	w = ft_strsplit(str, ',');
-	if (count_words(w) == 1)
+	p = ft_strchr(str, ',');
+	if (!p)
 		return (-1);
-	return (ft_atoi_base(ft_strsub(w[1], 2, 6), 16));
+	return (ft_atoi_base(p + 3, 16));
 }
 
-int gradient(t_colours colours, float dx, float dy, int n)
+int		gradient(t_colours colours, float dx, float dy, int n)
 {
 	float len;
 
 	len = sqrt(pow(dx, 2) + pow(dy, 2));
-	return (get_p_colour(len, 0, n, colours));
+	return (get_p_col(len, 0, n, colours));
 }
 
-void set_colours(t_fdf *st)
+void	set_colours(t_fdf *st)
 {
-	t_point *p;
-	int i;
-	t_colours colours;
+	t_point		*p;
+	int			i;
+	t_colours	c;
 
-	colours.frstCol = TO;
-	colours.scndCol = FROM;
+	c.frstCol = TO;
+	c.scndCol = FROM;
 	i = -1;
 	p = st->map->base_p;
 	if (st->map->has_colour)
@@ -64,8 +76,7 @@ void set_colours(t_fdf *st)
 			if (st->map->max_z == st->map->min_z)
 				p->colour = FLAT;
 			else
-				p->colour = get_p_colour(st->map->max_z, st->map->min_z, p->z,
-										 colours);
+				p->colour = get_p_col(st->map->max_z, st->map->min_z, p->z, c);
 			p++;
 		}
 	}

@@ -6,20 +6,20 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 19:19:51 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/02/19 14:37:12 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/20 12:06:40 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int 	main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_fdf	st;
 
 	if (ac != 2 || !st_init(&st, av[1]))
 	{
 		ft_putendl_fd("Error!", 2);
-		return (0);
+		return (1);
 	}
 	copy_points(st.map);
 	init_mouse(&st);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keyboard.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
+/*   Updated: 2019/03/18 14:03:02 by cdenys-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 void	move_fdf(int key, t_fdf *st)
@@ -38,7 +50,7 @@ void	handle_space(t_fdf *st)
 int		deal_key(int key, t_fdf *st)
 {
 	if (key == ESC)
-		exit (0);
+		exit(0);
 	if (key == LEFT || key == RIGHT || key == UP || key == DOWN)
 		move_fdf(key, st);
 	if (key == SPACE)

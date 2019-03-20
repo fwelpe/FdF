@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prepares.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:15:00 by cdenys-a          #+#    #+#             */
+/*   Updated: 2019/03/18 14:46:32 by cdenys-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int		validate_z(char *str)
@@ -10,10 +22,10 @@ int		validate_z(char *str)
 		if (!((str[i] >= '0' && str[i] <= '9') || str[i] == '-'))
 		{
 			ft_putendl_fd("Error!", 2);
-			exit (1);
+			exit(1);
 		}
 	}
-	return (ft_atoi(ft_strsplit(str, ',')[0]));
+	return (ft_atoi(str));
 }
 
 void	fill_base_p(t_map *map, int i, int j)
@@ -37,8 +49,8 @@ void	fill_base_p(t_map *map, int i, int j)
 
 int		p_arr_init(t_map *map)
 {
-	int 	i;
-	int 	j;
+	int	i;
+	int	j;
 
 	map->has_colour = 0;
 	map->max_z = validate_z(map->str_map[0][0]);
@@ -63,7 +75,7 @@ int		st_init(t_fdf *st, char *name)
 {
 	st->mlx_ptr = mlx_init();
 	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, get_name(name));
-	if(!(st->image = new_image(st)))
+	if (!(st->image = new_image(st)))
 		return (0);
 	MALLCHECK((st->map = (t_map *)malloc(sizeof(t_map))));
 	if (!fillall_validate(st->map, name) || !p_arr_init(st->map))

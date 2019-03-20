@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scale.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:17:12 by cdenys-a          #+#    #+#             */
+/*   Updated: 2019/03/18 14:18:10 by cdenys-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 void	get_scale(t_fdf *st)
 {
-	float maxx;
-	float minx;
-	float maxy;
-	float miny;
-	int i;
+	float	maxx;
+	float	minx;
+	float	maxy;
+	float	miny;
+	int		i;
 
 	maxx = st->map->work_p[0].x;
 	minx = maxx;
@@ -27,7 +39,7 @@ void	get_scale(t_fdf *st)
 		st->cam->scale = (i * (1 - INDENT_PCT * 2) * 2) / (maxy - miny);
 }
 
-void add_scale(t_map *map, t_cam *cam)
+void	add_scale(t_map *map, t_cam *cam)
 {
 	int		i;
 	t_point *p;
