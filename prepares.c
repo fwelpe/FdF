@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:15:00 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/18 14:46:32 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/23 17:28:12 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int		p_arr_init(t_map *map)
 
 int		st_init(t_fdf *st, char *name)
 {
+	MALLCHECK((st->map = (t_map *)malloc(sizeof(t_map))));
+	if (!fillall_validate(st->map, name) || !p_arr_init(st->map))
+		return (0);
 	st->mlx_ptr = mlx_init();
 	st->win_ptr = mlx_new_window(st->mlx_ptr, W, H, get_name(name));
 	if (!(st->image = new_image(st)))
-		return (0);
-	MALLCHECK((st->map = (t_map *)malloc(sizeof(t_map))));
-	if (!fillall_validate(st->map, name) || !p_arr_init(st->map))
 		return (0);
 	set_colours(st);
 	MALLCHECK((st->cam = (t_cam *)malloc(sizeof(t_cam))));

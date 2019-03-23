@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:05:19 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/18 14:05:48 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/23 17:23:48 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	init_mouse(t_fdf *st)
 int	mouse_press(int button, int x, int y, t_fdf *st)
 {
 	(void)x;
-	(void)y;
-	st->mouse->button = button;
+	if (y >= 0)
+		st->mouse->button = button;
 	return (0);
 }
 
@@ -48,8 +48,8 @@ int	mouse_move(int x, int y, t_fdf *st)
 	st->mouse->y = y;
 	if (st->mouse->button == 1)
 	{
-		st->cam->x += (st->mouse->lasty - y) / 50.0f;
-		st->cam->y -= (st->mouse->lastx - x) / 50.0f;
+		st->cam->x += (st->mouse->lasty - y) / 150.0f;
+		st->cam->y -= (st->mouse->lastx - x) / 150.0f;
 		copy_points(st->map);
 		draw(st);
 	}

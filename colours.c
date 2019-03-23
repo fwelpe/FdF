@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 13:31:28 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/18 14:42:33 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/23 17:13:49 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ double	get_p_col(double max, double min, int z, t_colours colours)
 	int i;
 
 	i = 0;
-	c1 = colours.frstCol >> 16;
-	c2 = colours.scndCol >> 16;
+	c1 = colours.frstcol >> 16;
+	c2 = colours.scndcol >> 16;
 	while (i < 3)
 	{
 		if (c1 > c2)
 			res[i] = c2 + ((z - min) / (max - min)) * (c1 - c2);
 		else
 			res[i] = c2 - ((z - min) / (max - min)) * (c2 - c1);
-		c1 = i == 0 ? (colours.frstCol & 0xFF00) >> 8 : colours.frstCol & 0xFF;
-		c2 = i == 0 ? (colours.scndCol & 0xFF00) >> 8 : colours.scndCol & 0xFF;
+		c1 = i == 0 ? (colours.frstcol & 0xFF00) >> 8 : colours.frstcol & 0xFF;
+		c2 = i == 0 ? (colours.scndcol & 0xFF00) >> 8 : colours.scndcol & 0xFF;
 		i++;
 	}
 	return ((res[0] << 16) | (res[1] << 8) | res[2]);
@@ -59,8 +59,8 @@ void	set_colours(t_fdf *st)
 	int			i;
 	t_colours	c;
 
-	c.frstCol = TO;
-	c.scndCol = FROM;
+	c.frstcol = TO;
+	c.scndcol = FROM;
 	i = -1;
 	p = st->map->base_p;
 	if (st->map->has_colour)

@@ -1,6 +1,7 @@
 .vscode/
 temp/
 *DS_Store*
+objects
 *.o
 *.a
 fdf

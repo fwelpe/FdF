@@ -6,7 +6,7 @@
 #    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/03/18 13:56:30 by cdenys-a         ###   ########.fr        #
+#    Updated: 2019/03/23 17:24:54 by cdenys-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,13 @@ FLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LFT) $(LMLX)
+$(NAME): $(OBJ_DIR) $(OBJS) $(LFT) $(LMLX)
 	$(CC) $(OBJS) $(LFT) $(LMLX) -framework OpenGL -framework AppKit -o $(NAME)
 
+$(OBJ_DIR):
+	mkdir $@
+
 $(OBJ_DIR)%.o: %.c
-	@mkdir -p $(OBJ_DIR) || true
 	$(CC) $(FLAGS) -o $@ -c $^
 
 $(LFT):
@@ -39,13 +41,15 @@ $(LMLX):
 clean:
 	make -C libft/ clean
 	make -C minilibx_macos/ clean
-	rm $(OBJS)
+	rm -f $(OBJS)
 
 fclean:
 	make -C libft/ fclean
 	make -C minilibx_macos/ clean
-	rm -f $(OBJS)
 	rm -rf $(OBJ_DIR)
 	rm -f $(NAME)
 
 re: fclean all
+
+norm:
+	norminette *.c *.h

@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:48:54 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/18 14:30:34 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/23 17:31:31 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "libft/libft.h"
 # include "minilibx_macos/mlx.h"
 
-# define W 1200
-# define H 700
+# define W 1920
+# define H 1080
 # define INDENT_PCT 0.3
 
 # define TO AQUA
@@ -55,8 +55,8 @@ typedef struct		s_point
 
 typedef struct		s_colours
 {
-	int				frstCol;
-	int				scndCol;
+	int				frstcol;
+	int				scndcol;
 }					t_colours;
 
 typedef struct		s_deltas
@@ -147,5 +147,6 @@ char				*get_name(char *path);
 void				get_scale(t_fdf *st);
 void				add_scale(t_map *map, t_cam *cam);
 int					r_d_for_work(t_map *map);
+int					red_button(void *param);
 
 #endif

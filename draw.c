@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:28:43 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/18 14:30:10 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/23 17:13:51 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	if_dx(t_point p1, t_point p2, t_fdf *st, t_deltas dt)
 	x = p1.x;
 	y = p1.y;
 	shift = dt.dy / dt.dx * (p1.y < p2.y ? 1 : -1);
-	c.frstCol = p2.colour;
-	c.scndCol = p1.colour;
+	c.frstcol = p2.colour;
+	c.scndcol = p1.colour;
 	while (x <= p2.x)
 	{
 		if (x >= 0 && x <= W && y >= 0 && y <= H)
@@ -59,8 +59,8 @@ void	if_dy(t_point p1, t_point p2, t_fdf *st, t_deltas dt)
 	x = p1.x;
 	y = p1.y;
 	shift = dt.dx / dt.dy * (p1.x < p2.x ? 1 : -1);
-	c.frstCol = p2.colour;
-	c.scndCol = p1.colour;
+	c.frstcol = p2.colour;
+	c.scndcol = p1.colour;
 	while (y <= p2.y)
 	{
 		if (x >= 0 && x <= W && y >= 0 && y <= H)
