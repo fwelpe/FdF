@@ -6,19 +6,41 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 19:19:51 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/23 17:30:34 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/24 15:06:00 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+int	erroring(int ac, char *av1)
+{
+	int		fd;
+	char	*s;
+
+	if (ac != 2)
+	{
+		s = "Usage: ./fdf /path/to/file.fdf\nPath can be absolute or relative.";
+		ft_putendl_fd(s, 2);
+		return (1);
+	}
+	if ((fd = open(av1, O_RDONLY)) == -1)
+	{
+		ft_putendl_fd("Wrong file path. Not found.", 2);
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_fdf	st;
 
-	if (ac != 2 || !st_init(&st, av[1]))
+	if (erroring(ac, av[1]))
+		return (1);
+	if (!st_init(&st, av[1]))
 	{
-		ft_putendl_fd("Error!", 2);
+		ft_putendl_fd("Map file is wrong.", 2);
 		return (1);
 	}
 	copy_points(st.map);
