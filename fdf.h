@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:48:54 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/24 15:33:21 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/24 18:26:49 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@
 # define SPRING 0x99FF00
 
 # define ESC 53
-# define LEFT 123
-# define RIGHT 124
-# define DOWN 125
+# define LEFT 124
+# define RIGHT 123
+# define DOWN 126
 # define SPACE 49
-# define PLUS 24
-# define MINUS 27
-# define UP 126
+# define PLUS 4
+# define MINUS 5
+# define UP 125
 
 # define MALLCHECK(x) if (!x) return (0)
 
@@ -148,5 +148,9 @@ void				get_scale(t_fdf *st);
 void				add_scale(t_map *map, t_cam *cam);
 int					r_d_for_work(t_map *map);
 int					red_button(void *param);
+void				zoom_fdf(int key, t_fdf *st);
+int					zoom(int button, int x, int y, t_fdf *st);
+void				show_keywords(t_fdf *st);
+int					erroring(int ac, char *av1);
 
 #endif

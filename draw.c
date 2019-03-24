@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:28:43 by fwlpe             #+#    #+#             */
-/*   Updated: 2019/03/23 17:13:51 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/24 17:57:25 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,5 @@ void	draw(t_fdf *st)
 	}
 	mlx_put_image_to_window(st->mlx_ptr, st->win_ptr, st->image->image_cont,
 	0, 0);
+	show_keywords(st);
 }

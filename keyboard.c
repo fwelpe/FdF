@@ -6,7 +6,7 @@
 /*   By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:02:03 by cdenys-a          #+#    #+#             */
-/*   Updated: 2019/03/23 17:42:21 by cdenys-a         ###   ########.fr       */
+/*   Updated: 2019/03/24 18:01:29 by cdenys-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,6 @@ void	move_fdf(int key, t_fdf *st)
 		st->cam->move_x += W / 40;
 	if (key == RIGHT)
 		st->cam->move_x -= W / 40;
-	copy_points(st->map);
-	draw(st);
-}
-
-void	zoom_fdf(int key, t_fdf *st)
-{
-	float	delta;
-
-	delta = (100 / sqrt(pow(st->map->height, 2) + pow(st->map->width, 2)));
-	if (key == PLUS)
-		st->cam->scale += delta;
-	if (key == MINUS && st->cam->scale > delta)
-		st->cam->scale -= delta;
-	st->cam->zoom = 1;
 	copy_points(st->map);
 	draw(st);
 }

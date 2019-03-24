@@ -6,7 +6,7 @@
 #    By: cdenys-a <cdenys-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/07 18:13:37 by fwlpe             #+#    #+#              #
-#    Updated: 2019/03/23 17:24:54 by cdenys-a         ###   ########.fr        #
+#    Updated: 2019/03/24 17:55:40 by cdenys-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LFT = libft/libft.a
 LMLX = minilibx_macos/libmlx.a
 SRCS = cam.c colours.c draw.c free_any.c ft_atoi_base.c ft_itoa_base.c \
 image.c keyboard.c main.c mouse.c path.c points_for_work.c prepare_points.c \
-prepares.c read.c scale.c
+prepares.c read.c scale.c usage.c
 OBJ_DIR = objects/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 FLAGS = -Wall -Wextra -Werror -g
